@@ -1,0 +1,32 @@
+[
+    {
+        "name": "Floor 1",
+        "enemies": ["Blue Slime"]
+
+    },
+    {
+        "name": "Floor 2",
+        "enemies": ["Blue Slime", "Blue Slime"]
+       
+    },
+    {
+        "name": "Floor 3",
+        "enemies": ["Blue Slime"]
+       
+    },
+    {
+        "name": "Floor 4",
+        "enemies": ["Blue Slime"]
+       
+    },
+    {
+        "name": "Floor 5",
+        "enemies": ["Blue Slime"]
+        
+    },
+    {
+        "name": "Floor 6",
+        "enemies": ["Blue Slime"]
+    }
+   
+]

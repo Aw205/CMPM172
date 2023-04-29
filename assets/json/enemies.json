@@ -1,0 +1,18 @@
+[
+    {
+        "name": "Blue Slime",
+        "description": "A blue blob.",
+        "damage": "10"
+    },
+    {
+        "name": "Red Slime",
+        "description": "A red blob.",
+        "damage": "10"
+    },
+    {
+        "name": "Green Slime",
+        "description": "A green blob.",
+        "damage": "10"
+    }
+   
+]

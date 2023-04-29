@@ -1,0 +1,91 @@
+{
+    "image": {
+
+        "fire_particle" : "images/particles/fire_particle.png",
+        "water_particle" : "images/particles/water_particle.png",
+        "wood_particle" : "images/particles/wood_particle.png",
+        "light_particle" : "images/particles/light_particle.png",
+        "dark_particle" : "images/particles/dark_particle.png",
+        "fire" : "images/orbs/Fire.png",
+        "water" : "images/orbs/Water.png",
+        "wood" : "images/orbs/Wood.png",
+        "light" : "images/orbs/Light.png",
+        "dark" : "images/orbs/Dark.png",
+        "Health Potion": "images/potions/healthPotion.png",
+        "Attack Potion": "images/potions/attackPotion.png",
+        "Regen Potion": "images/potions/regenPotion.png",
+        "Time Potion": "images/potions/timePotion.png",
+        "Combo Potion": "images/potions/comboPotion.png",
+        "Refresh Potion": "images/potions/refreshPotion.png",
+        "Cheeseburger": "images/artifacts/cheeseBurger.png",
+        "Emerald Ring": "images/artifacts/emeraldRing.png",
+        "Holy Amulet": "images/artifacts/holyAmulet.png",
+        "Blazing Sword": "images/artifacts/blazingSword.png",
+        "Ruby Pendant": "images/artifacts/rubyPendant.png",
+        "Viking Helm": "images/artifacts/vikingHelm.png",
+        "Frost Shield": "images/artifacts/frostShield.png",
+        "Flame Barrier": "images/artifacts/flameBarrier.png",
+        "Shadow Shield": "images/artifacts/shadowShield.png",
+        "coin": "images/coin.png",
+        "moneyBag": "images/monies.png",
+        "heart": "images/heart.png",
+        "cursor": "UI/sAxCursor.png", 
+        "flatButton": "UI/flatButton.png",
+        "dialogBox": "UI/dialogBox.png", 
+        "button_background": "UI/button_background.png",
+        "window": "UI/window.png",
+        "banner": "UI/banner.png",
+        "goldFrame": "UI/goldFrame.png",
+        "potionSilhouette": "UI/potionSilhouette.png",
+        "hudFrame": "UI/hudFrame.png",
+        "shopFrame": "UI/shopFrame.png",
+        "bluegui": "UI/bluegui.png",
+        "slime": "images/blu_slime.png",
+        "battleCircle": "images/battleCircleUpdated.png",
+        "questionMark": "UI/Question-Mark.png"
+        
+    },
+    "svg":{
+
+    },
+    "audio": {
+        "button_click": "audio/button_click.wav"
+    },
+    "spritesheet": {
+        "player": [
+            "player/characters.png",
+            {
+                "frameWidth": 52,
+                "frameHeight": 72
+            }
+        ],
+        "RetroWorld": [
+            "map/atlas_16x.png",
+            {
+                "frameWidth": 16,
+                "frameHeight": 16
+            }
+        ],
+        "particles": [
+            "images/particles/Particles.png",
+            {
+                "frameWidth": 8,
+                "frameHeight": 8
+            }
+        ]
+    },
+    "json": {
+        "potions": "json/potions.json",
+        "artifacts": "json/artifacts.json",
+        "levels": "json/levels.json"
+    },
+    "bitmapFont": {
+        "peaberry": [
+            "fonts/WhitePeaberry.png",
+            "fonts/WhitePeaberry.xml"
+        ]
+    },
+    "tilemapTiledJSON": {
+        "tavern": "map/Tavern.json"
+    }
+}

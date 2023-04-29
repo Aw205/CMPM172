@@ -1,0 +1,56 @@
+[
+    {
+        "name": "Cheeseburger",
+        "description": "Provides permanent 10 life regen.",
+        "rarity": "Gold",
+        "price": "150"
+    },
+    {
+        "name": "Emerald Ring",
+        "description": "+ 1 combo count.",
+        "rarity": "Gold",
+        "price": "130"
+    },
+    {
+        "name": "Holy Amulet",
+        "description": "Gives extra damage resistance",
+        "rarity": "Gold",
+        "price": "110"
+    },
+    {
+        "name": "Blazing Sword",
+        "description": "Attacks afflict burning debuff.",
+        "rarity": "Gold",
+        "price": "160"
+    },
+    {
+        "name": "Ruby Pendant",
+        "description": "+ 30% fire damage.",
+        "rarity": "Gold",
+        "price": "140"
+    },
+    {
+        "name": "Viking Helm",
+        "description": "Increase crit chance",
+        "rarity": "Gold",
+        "price": "125"
+    },
+    {
+        "name": "Frost Shield",
+        "description": "+ 50 max health.",
+        "rarity": "Gold",
+        "price": "130"
+    },
+    {
+        "name": "Flame Barrier",
+        "description": "+ 30% fire damage.",
+        "rarity": "Gold",
+        "price": "150"
+    },
+    {
+        "name": "Shadow Shield",
+        "description": "+ 30% dark damage.",
+        "rarity": "Gold",
+        "price": "140"
+    }
+]
