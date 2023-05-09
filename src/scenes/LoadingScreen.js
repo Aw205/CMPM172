@@ -21,7 +21,7 @@ class LoadingScreen extends Phaser.Scene {
         Object.keys(assets).forEach((group) => {
             Object.keys(assets[group]).forEach((key) => {
                 let value = assets[group][key];
-                if (group == "bitmapFont" || group == "spritesheet" || group == "atlas" || group == "svg") {
+                if (group == "bitmapFont" || group == "spritesheet" || group == "atlas" || group == "svg" || group == "aseprite") {
                     this.load[group](key, value[0], value[1]);
                 }
                 else {
@@ -43,7 +43,7 @@ class LoadingScreen extends Phaser.Scene {
         let border = this.add.graphics({ lineStyle: { width: 5, color: 0xaaaaaa } });
         border.strokeRectShape(borderRect);
 
-        this.add.text(game.config.width / 2, game.config.height / 2 - 50, "Pouring Drinks...");
+        this.add.text(game.config.width / 2, game.config.height / 2 - 50, "Loading...");
 
         this.progressBar = this.add.graphics();
         this.load.on("progress", (progress) => {

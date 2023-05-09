@@ -1,0 +1,111 @@
+#healthpoints {
+    user-select: none;
+    pointer-events: none;
+    display: inline-block;
+    font: 14px kreon;
+    color: #C34A2C;
+    text-shadow: 1px 1px 1px black;
+}
+
+.pixelImg {
+    image-rendering: pixelated;
+}
+
+.pixelImg:hover {
+    transform: scale(1.3);
+}
+
+#healthui:hover .tooltiptext {
+    visibility: visible;
+}
+
+.tooltiptext {
+    visibility: hidden;
+    padding: 5px;
+    border-style: solid;
+    border-radius: 10px;
+    background-color: rgb(20, 20, 20);
+    font: 10px kreon;
+    color: tan;
+    top: 100%;
+    position: absolute;
+    
+}
+
+.item-description {
+    visibility: hidden;
+    padding: 5px;
+    border-style: solid;
+    border-radius: 10px;
+    background-color: rgb(20, 20, 20);
+    font: 10px kreon;
+    color: tan;
+    top: 100%;
+    position: absolute;
+    
+}
+
+#money-ui:hover .tooltiptext {
+    visibility: visible;
+}
+
+#money-count {
+    user-select: none;
+    pointer-events: none;
+    display: inline-block;
+    font: 14px kreon;
+    color: gold;
+    text-shadow: 1px 1px 1px black;
+}
+
+#backpack-ui:hover .tooltiptext {
+    visibility: visible;
+}
+
+.artifact-slot {
+    margin: 2px;
+    width: 32px;
+    height: 32px;
+    border-style: solid;
+    border-radius: 5px;
+    border-color: rgb(50, 50, 50);
+    border-bottom-color:gray;
+    outline: solid 1px rgb(78, 76, 76);
+    transition: outline 0.1s;
+}
+
+.artifact-slot:hover{
+    outline-width: 2px;
+}
+
+.artifact-slot:hover span {
+    visibility: visible;
+}
+
+.artifact-slot:hover div {
+    visibility: visible;
+}
+
+.potion-slot {
+    margin: 2px;
+    width: 32px;
+    height: 32px;
+    outline: solid 1px rgb(78, 76, 76);
+    border-style: solid;
+    border-radius: 20px;
+    border-color: rgb(50, 50, 50);
+    border-bottom-color:gray;
+    transition: outline 0.1s;
+}
+
+.potion-slot:hover{
+    outline-width: 2px;
+}
+
+.potion-slot:hover span {
+    visibility: visible;
+}
+
+.potion-slot:hover div {
+    visibility: visible;
+}

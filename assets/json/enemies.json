@@ -1,17 +1,20 @@
 [
-    {
+   {
         "name": "Blue Slime",
         "description": "A blue blob.",
+        "weakness" : "Grass",
         "damage": "10"
     },
     {
         "name": "Red Slime",
         "description": "A red blob.",
+        "weakness" : "Water",
         "damage": "10"
     },
     {
         "name": "Green Slime",
         "description": "A green blob.",
+        "weakness" : "Fire",
         "damage": "10"
     }
    

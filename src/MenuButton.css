@@ -1,0 +1,16 @@
+.menu:hover {
+    background-color: #4d4c4c;
+}
+
+.menu {
+    font: 20px kreon; 
+    color: black; 
+    border-radius: 2px; 
+    background-color: Gray; 
+    margin: 10px; 
+    opacity: 0.3;
+}
+
+#menuContainer {
+    display: grid;
+}

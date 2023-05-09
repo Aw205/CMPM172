@@ -13,7 +13,7 @@ let config = {
       //debug: true
     }
   },
-  scene: [LoadingScreen,Menu,Tavern,DialogModal,CombatScene,ShopScene,HudScene,InventoryScene],
+  scene: [LoadingScreen,Menu,DialogModal,CombatScene,ShopScene,HudScene,InventoryScene,CampfireScene,SettingsScene],
   scale: {
     mode: Phaser.Scale.FIT,
   },
@@ -23,13 +23,6 @@ let config = {
   autoCenter: true,
   pixelArt: true,
   plugins: {
-    scene: [
-      {
-        key: "gridEngine",
-        plugin: GridEngine,
-        mapping: "gridEngine",
-      },
-    ],
   }
 };
 

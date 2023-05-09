@@ -1,45 +1,31 @@
-class HealthBar extends Phaser.GameObjects.GameObject {
+class HealthBar extends Phaser.GameObjects.DOMElement {
 
-    constructor(scene,x,y) {
-        super(scene);
-        this.x = x;
-        this.y = y;
-
-        this.maxHealth = 100;
-        this.currentHealth = 100;
-        this.createBar();
-
-    }
-
-    createBar() {
+    constructor(scene,x,y,maxHealth) {
+        super(scene,x,y);
+        this.maxHealth = maxHealth;
+        this.currentHealth = maxHealth;
 
         let html = `
-        <link rel="stylesheet" type="text/css" href="idk.css">
+        <link rel="stylesheet" type="text/css" href="healthbar.css">
          <div class="health-bar" id = "healthbar">
              <div class="bar" id = "playerBar">
              <div class="hit" id = "hitBar" ></div>
              </div>
-             <div class="health-num" id = "playerHealthNum"> ${this.currentHealth}/100 </div>
+             <div class="health-num" id = "playerHealthNum"> ${this.currentHealth}/${this.maxHealth} </div>
          </div>`;
-        this.healthBar = this.scene.add.dom(this.x, this.y).createFromHTML(html);
+
+        this.createFromHTML(html);
+        this.scene.add.existing(this);
 
     }
 
     onHit(damage) {
-
         this.currentHealth -= damage;
-        this.healthBar.getChildByID("playerBar").style.width = ((this.currentHealth) / this.maxHealth) * 100 + "%";
-        this.healthBar.getChildByID("playerHealthNum").innerText = this.currentHealth + "/" + this.maxHealth;
+        this.getChildByID("playerBar").style.width = ((this.currentHealth) / this.maxHealth) * 100 + "%";
+        this.getChildByID("playerHealthNum").innerText = this.currentHealth + "/" + this.maxHealth;
     }
 
     setWidth(){
-
-        this.healthBar.getChildByID("healthbar").style.width = "100px";
-
-
+        this.getChildByID("healthbar").style.width = "100px";
     }
-
-
-
-
 }

@@ -1,16 +1,15 @@
 {
     "image": {
-
-        "fire_particle" : "images/particles/fire_particle.png",
-        "water_particle" : "images/particles/water_particle.png",
-        "wood_particle" : "images/particles/wood_particle.png",
-        "light_particle" : "images/particles/light_particle.png",
-        "dark_particle" : "images/particles/dark_particle.png",
-        "fire" : "images/orbs/Fire.png",
-        "water" : "images/orbs/Water.png",
-        "wood" : "images/orbs/Wood.png",
-        "light" : "images/orbs/Light.png",
-        "dark" : "images/orbs/Dark.png",
+        "fire_particle": "images/particles/fire_particle.png",
+        "water_particle": "images/particles/water_particle.png",
+        "wood_particle": "images/particles/wood_particle.png",
+        "light_particle": "images/particles/light_particle.png",
+        "dark_particle": "images/particles/dark_particle.png",
+        "fire": "images/orbs/Fire.png",
+        "water": "images/orbs/Water.png",
+        "wood": "images/orbs/Wood.png",
+        "light": "images/orbs/Light.png",
+        "dark": "images/orbs/Dark.png",
         "Health Potion": "images/potions/healthPotion.png",
         "Attack Potion": "images/potions/attackPotion.png",
         "Regen Potion": "images/potions/regenPotion.png",
@@ -29,41 +28,54 @@
         "coin": "images/coin.png",
         "moneyBag": "images/monies.png",
         "heart": "images/heart.png",
-        "cursor": "UI/sAxCursor.png", 
-        "flatButton": "UI/flatButton.png",
-        "dialogBox": "UI/dialogBox.png", 
-        "button_background": "UI/button_background.png",
+        "cursor": "UI/sAxCursor.png",
+        "dialogBox": "UI/dialogBox.png",
         "window": "UI/window.png",
-        "banner": "UI/banner.png",
         "goldFrame": "UI/goldFrame.png",
         "potionSilhouette": "UI/potionSilhouette.png",
         "hudFrame": "UI/hudFrame.png",
         "shopFrame": "UI/shopFrame.png",
         "bluegui": "UI/bluegui.png",
-        "slime": "images/blu_slime.png",
-        "battleCircle": "images/battleCircleUpdated.png",
-        "questionMark": "UI/Question-Mark.png"
-        
+        "battleCircle": "images/battleCircle.png",
+        "questionMark": "UI/Question-Mark.png",
+        "clouds_front_t": "images/parallax_fc/clouds_front_t_fc.png",
+        "clouds_front": "images/parallax_fc/clouds_front_fc.png",
+        "clouds_mid_t": "images/parallax_fc/clouds_mid_t_fc.png",
+        "clouds_mid": "images/parallax_fc/clouds_mid_fc.png",
+        "far_mountains": "images/parallax_fc/far_mountains_fc.png",
+        "grassy_mountains": "images/parallax_fc/grassy_mountains_fc.png",
+        "hill": "images/parallax_fc/hill copy.png",
+        "sky": "images/parallax_fc/sky_fc.png",
+        "hillBackground": "images/hillBackground.png",
+        "stars": "images/1.png",
+        "star_cloud": "images/3.png"
     },
-    "svg":{
+    "svg": {},
+    "audio": {
+        "button_click": "audio/button_click.wav",
+        "campfire_music": "audio/edited-fantasy-medival.wav",
+        "menu_music": "audio/rpg_music_edited.wav"
 
     },
-    "audio": {
-        "button_click": "audio/button_click.wav"
+    "aseprite": {
+        "blue_slime": [
+            "enemy/blueSlime.png",
+            "enemy/blueSlime.json"
+        ]
     },
     "spritesheet": {
-        "player": [
-            "player/characters.png",
+        "campfire": [
+            "images/burning_loop_1.png",
             {
-                "frameWidth": 52,
-                "frameHeight": 72
+                "frameWidth": 24,
+                "frameHeight": 32
             }
         ],
-        "RetroWorld": [
-            "map/atlas_16x.png",
+        "campfireEnd": [
+            "images/burning_end_1.png",
             {
-                "frameWidth": 16,
-                "frameHeight": 16
+                "frameWidth": 24,
+                "frameHeight": 32
             }
         ],
         "particles": [
@@ -77,15 +89,9 @@
     "json": {
         "potions": "json/potions.json",
         "artifacts": "json/artifacts.json",
-        "levels": "json/levels.json"
+        "levels": "json/levels.json",
+        "enemies": "json/enemies.json"
     },
-    "bitmapFont": {
-        "peaberry": [
-            "fonts/WhitePeaberry.png",
-            "fonts/WhitePeaberry.xml"
-        ]
-    },
-    "tilemapTiledJSON": {
-        "tavern": "map/Tavern.json"
-    }
+    "bitmapFont": {},
+    "tilemapTiledJSON": {}
 }

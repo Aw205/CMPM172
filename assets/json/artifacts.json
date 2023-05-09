@@ -13,13 +13,13 @@
     },
     {
         "name": "Holy Amulet",
-        "description": "Gives extra damage resistance",
+        "description": "Gives extra damage resistance.",
         "rarity": "Gold",
         "price": "110"
     },
     {
         "name": "Blazing Sword",
-        "description": "Attacks afflict burning debuff.",
+        "description": "Attacks inflict burning debuff.",
         "rarity": "Gold",
         "price": "160"
     },
@@ -31,7 +31,7 @@
     },
     {
         "name": "Viking Helm",
-        "description": "Increase crit chance",
+        "description": "Increased crit chance.",
         "rarity": "Gold",
         "price": "125"
     },

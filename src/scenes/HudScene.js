@@ -6,117 +6,52 @@ class HudScene extends Phaser.Scene {
     }
 
     create() {
-
         this.createUI();
     }
 
     createUI() {
-
-        //this.add.nineslice(320, 25, 'hudFrame', null, 640, 40, 11, 11, 11, 11).setTint(0xb66949);
-        //this.add.nineslice(320, 25, 'bluegui', null, 640, 40, 2,2,2,2);
-
-        this.add.nineslice(320,25,'shopFrame',null,640,40,6,6,6,6);
+        // let backgroundHTML = `<div style= "height: 30px; width: 100px; background-image: linear-gradient(to right, black,80%,transparent);"> </div>`;
+        // let background = this.add.dom(50, 25).createFromHTML(backgroundHTML);
 
         this.createHeartUI();
         this.createMoneyUI();
-        this.createArtifactSlotUI();
         this.createPotionSlotUI();
+        this.createArtifactSlotUI();
+       
+
+        let backpackHtml = `
+                        <div id= "backpack-ui" style = "cursor: pointer">
+                            <img src="assets/UI/backpack.png" class = "pixelImg">
+                        </div>`;
+        let backpackDom = this.add.dom(590, 170).createFromHTML(backpackHtml);
+        backpackDom.getChildByID("backpack-ui").addEventListener("pointerdown", () => {
+            this.scene.run("InventoryScene");
+            this.scene.get("CampfireScene").events.emit("setInvisible");
+        });
     }
 
     createHeartUI() {
 
-
-        let heart = this.add.image(30, 25, "heart");
-        let healthHtml = `<p id = "healthUI" style= "user-select: none; pointer-events: none; font: 14px kreon; color: #C34A2C; text-shadow: 1px 1px 1px black;" > 100 </p>`;
-        let healthDom = this.add.dom(50, 25).createFromHTML(healthHtml);
-
-        let description = "yo health."
-        let labelHTML = `<p style= "padding: 10px; border-style: double; border-radius: 10px; background-color: rgb(20, 20, 20); font: 12px kreon; color: tan" > ${description} </p>`;
-        let descriptionLabel = this.add.dom(0, 0).createFromHTML(labelHTML).setVisible(false);
-
-        heart.setInteractive();
-        heart.on("pointermove", (pointer, localX, localY, event) => {
-            descriptionLabel.setPosition(pointer.worldX + 8, pointer.worldY + 40);
-        });
-        heart.on("pointerover", () => {
-            heart.preFX.addGlow(0xff0000, 2);
-            descriptionLabel.setVisible(true);
-        });
-        heart.on("pointerout", () => {
-            heart.clearFX();
-            descriptionLabel.setVisible(false);
-        });
-
-    }
-
-    createPotionSlotUI() {
-
-        let slots = [];
-        slots.push(new PotionSlot(this, 200, 25, "potionSilhouette"));
-        slots.push(new PotionSlot(this, 232, 25, "potionSilhouette"));
-        slots.push(new PotionSlot(this, 264, 25, "potionSilhouette"));
-
-
-        this.events.on("itemPurchased",(itemData,itemLabel)=>{
-
-            if(itemData.type == "potion"){
-                for(let slot of slots){
-                    if(slot.currentPotion==null){
-                        slot.addPotion(itemData,itemLabel);
-                        break;
-                    }
-                }
-            }  
-        });
-
-    }
-
-    createArtifactSlotUI() {
-
-        let slots = [];
-
-        slots.push(new ArtifactSlot(this,340,25,"goldFrame"));
-        slots.push(new ArtifactSlot(this,380,25,"goldFrame"));
-        slots.push(new ArtifactSlot(this,420,25,"goldFrame"));
-     
-        this.events.on("equipItem",(artifactData)=>{
-            for(let slot of slots){
-                if(slot.currentArtifact==null){
-                    slot.addArtifact(artifactData);
-                    break;
-                }
-            }
-        });
-
+        let healthHtml = `
+                        <link rel = "stylesheet" href= "./src/hud.css">
+                        <div id= "healthui">
+                            <span class="tooltiptext" >yo health</span> 
+                            <img src="assets/images/heart.png" class = "pixelImg">
+                            <p id = "healthpoints"> 100 </p>
+                        </div>`;
+        let healthDom = this.add.dom(100, 45).createFromHTML(healthHtml);
     }
 
     createMoneyUI() {
 
-
-        let moneyBag = this.add.image(95, 25, "moneyBag");
-        let playerMoneyHtml = `<p id = "money" data-money = "500" style= "user-select: none; pointer-events: none; font: 14px kreon; color: gold; text-shadow: 1px 1px 1px black;" > 500 </p>`;
-        let dom = this.add.dom(125, 25).createFromHTML(playerMoneyHtml);
-        let playerMoney = dom.getChildByID("money");
-
-
-        let description = "yo monies"
-        let labelHTML = `<p style= "padding: 10px; border-style: double; border-radius: 10px; background-color: rgb(20, 20, 20); font: 12px kreon; color: tan" > ${description} </p>`;
-        let descriptionLabel = this.add.dom(0, 0).createFromHTML(labelHTML).setVisible(false);
-
-        //unlock more potions slot, artifact slots
-
-        moneyBag.setInteractive();
-        moneyBag.on("pointerover", () => {
-            moneyBag.preFX.addGlow(0xFFFF00, 1);
-            descriptionLabel.setVisible(true);
-        });
-        moneyBag.on("pointermove", (pointer, localX, localY, event) => {
-            descriptionLabel.setPosition(pointer.worldX + 8, pointer.worldY + 40);
-        });
-        moneyBag.on("pointerout", () => {
-            moneyBag.clearFX();
-            descriptionLabel.setVisible(false);
-        });
+        let moneyHtml = `  
+                    <div id= "money-ui">
+                        <span class="tooltiptext" >yo monies</span> 
+                        <img src="assets/images/monies.png" class = "pixelImg">
+                        <p id = "money-count" data-money = "500" > 500 </p>
+                    </div>`;
+        let moneyDom = this.add.dom(160, 45).createFromHTML(moneyHtml);
+        let playerMoney = moneyDom.getChildByID("money-count");
 
         playerMoney.changeTo = (newVal) => {
             playerMoney.dataset.money = newVal;
@@ -128,7 +63,6 @@ class HudScene extends Phaser.Scene {
                     playerMoney.innerText = Math.floor(tween.getValue());
                 }
             });
-
             this.events.emit("playerMoneyChanged", newVal);
         };
         this.events.on("itemPurchased", (itemData) => {
@@ -138,5 +72,73 @@ class HudScene extends Phaser.Scene {
 
     }
 
+    createPotionSlotUI() {
 
+        let potionHtml = `
+        <div id = "potion-slots" data-openslots = "3" style = "border-style: solid; border-radius: 10px; border-color: rgb(30, 30, 30); display: flex;">
+            <div class = "potion-slot" id ="p1">
+                <span class="tooltiptext" >Potion Slot</span>  
+            </div>
+            <div class = "potion-slot" id ="p2" >
+                <span class="tooltiptext" >Potion Slot</span>  
+            </div>
+            <div class = "potion-slot" id ="p3">
+                <span class="tooltiptext" >Potion Slot</span>  
+            </div>
+        </div>`;
+        let potionDom = this.add.dom(610, 80).createFromHTML(potionHtml);
+
+        let pslots = [];
+        pslots.push(new PotionSlot(this, 510 + 13, 90, potionDom.getChildByID("p1")));
+        pslots.push(new PotionSlot(this, 548 + 13, 90,potionDom.getChildByID("p2")));
+        pslots.push(new PotionSlot(this, 586 + 13, 90 ,potionDom.getChildByID("p3")));
+
+        this.events.on("itemPurchased", (itemData, itemLabel) => {
+            if (itemData.type == "potion") {
+                for (let slot of pslots) {
+                    if (slot.currentPotion == null) {
+                        slot.addPotion(itemData, itemLabel);
+                        break;
+                    }
+                }
+            }
+        });
+
+    }
+
+    createArtifactSlotUI() {
+
+        let artifactHtml = `
+        <div style = "border-style: solid; border-radius: 10px; border-color: rgb(30, 30, 30); display: flex;">
+            <div class = "artifact-slot" id ="a1">
+                <span class="tooltiptext" >Artifact Slot</span>  
+            </div>
+            <div class = "artifact-slot" id ="a2" >
+                <span class="tooltiptext" >Artifact Slot</span>  
+            </div>
+            <div class = "artifact-slot" id ="a3">
+                <span class="tooltiptext" >Artifact Slot</span>  
+            </div>
+        </div>`;
+        let artifactDom = this.add.dom(620, 30).createFromHTML(artifactHtml);
+
+        let slots = [];
+        slots.push(new ArtifactSlot(this, 510 + 10, 40, artifactDom.getChildByID("a1")));
+        slots.push(new ArtifactSlot(this, 548 + 10, 40, artifactDom.getChildByID("a2")));
+        slots.push(new ArtifactSlot(this, 586 + 10, 40, artifactDom.getChildByID("a3")));
+
+        this.events.on("equipItem", (artifactData,itemLabel) => {
+            for (let slot of slots) {
+                if(slot.currentArtifact == artifactData.name){
+                    break;
+                }
+                if (slot.currentArtifact == null) {
+                    let itemLabel = `<div class ="item-description"> <span style= "color: ${artifactData.rarity}; "> ${artifactData.name}</span> <br> ${artifactData.description} 
+                                     </div>`
+                    slot.addArtifact(artifactData,itemLabel);
+                    break;
+                }
+            }
+        });
+    }
 }
