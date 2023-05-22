@@ -1,47 +1,59 @@
-class ShopItem extends Phaser.GameObjects.Image {
+class ShopItem extends Phaser.GameObjects.DOMElement {
 
 
-    constructor(scene, x, y, texture, itemData) {
-        super(scene, x, y, texture);
+    constructor(scene, x, y, itemData) {
+
+        super(scene, x, y);
 
         this.itemData = itemData;
-        this.setTexture(itemData.name);
+        let imgHtml = null;
+        if (itemData.type == "potion") {
+            imgHtml = `<img src="assets/images/potions/${itemData.name}.png" class="pixelImg">`;
+        }
+        else {
+            imgHtml = `<img src="assets/images/artifacts/${itemData.name}.png" class="pixelImg">`;
+        }
 
-        let priceHTML = ` <img src="assets/images/coin.png" width = "8" height = "8"> 
-                          <p id = "price" style= "user-select: none; pointer-events: none; font: 12px kreon; color: white; display: inline" > ${itemData.price} </p>`;
-        this.price = this.scene.add.dom(x, y + 30,).createFromHTML(priceHTML).setDepth(-1);
+        let html = `
+                    <div id = "cont">
+                    <div id="container" class="shop-slot">
+                        ${imgHtml}
+                        <span class="item-description"> <span style= "color: ${itemData.rarity}; "> ${itemData.name}</span> <br> ${itemData.description} </span>
+                    </div> 
+                    <img src="assets/images/coin.png" id= "img" width = "8" height = "8" style = "user-select: none; image-rendering: pixelated;"> 
+                    <p id = "price" style= "user-select: none; pointer-events: none; font: 12px kreon; color: white; display: inline" > ${itemData.price} </p>
+                    </div>`;
+        this.createFromHTML(html);
 
-        this.labelHTML = `<p id = "item" style= "width: 100px; padding: 10px; border-style: double; border-radius: 10px; background-color: rgb(20, 20, 20); font: 12px kreon; color: white" >
-        <span style= "color: ${itemData.rarity}; "> ${itemData.name}</span> <br> ${itemData.description} </p>`;
+        //let img = this.scene.textures.get(itemData.name).getSourceImage();
+        //img.className = "pixelImg";
+        //this.getChildByID("container").appendChild(img);
+        //let originalImage = this.scene.textures.get(itemData.name).getSourceImage();
+        //let clonedImageContainer = document.getElementById('container');
+        //let clonedImage = originalImage.cloneNode();
+        //clonedImage.setAttribute("id","works");
+        //this.getBlobFromURL(originalImage.src);
 
-        this.descriptionLabel = this.scene.add.dom(0, 0).createFromHTML(this.labelHTML).setVisible(false);
-
-        this.labelHTML = `<div class ="item-description">
-                            <span style= "color: ${itemData.rarity}; "> ${itemData.name}</span> <br> ${itemData.description} 
-                         </div>`
-        this.setInteractive({ useHandCursor: true });
         this.#createListeners();
+        this.ele = this.getChildByID("cont");
+        this.price = this.getChildByID("price");
+    }
 
-        this.scene.add.existing(this);
+    getBlobFromURL(url) {
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.responseType = 'blob';
+        xhr.onload = (e) => {
+            var urlCreator = window.URL || window.webkitURL;
+            var imageUrl = URL.createObjectURL(xhr.response);
+            document.querySelector("#works").src = imageUrl;
+        };
+        xhr.send();
     }
 
     #createListeners() {
-        this.on("pointerover", (pointer, localX, localY, event) => {
-            this.setScale(1.5);
-            this.descriptionLabel.setVisible(true);
-        });
-        this.on("pointermove", (pointer, localX, localY, event) => {
-            this.descriptionLabel.setPosition(pointer.worldX + 8, pointer.worldY + 60);
-        });
-        this.on("pointerout", (pointer, event) => {
-            this.setScale(1);
-            this.descriptionLabel.setVisible(false);
-        });
-        this.scene.input.on("gameout", () => {
-            this.setScale(1);
-            this.descriptionLabel.setVisible(false);
-        });
-        this.on("pointerdown", (pointer, localX, localY) => {
+
+        this.getChildByID("container").addEventListener("pointerdown",() => {   
             if (document.getElementById("money-count").dataset.money >= parseInt(this.itemData.price)) {
                 if (this.itemData.type == "potion") {
                     let numOpen = document.getElementById("potion-slots").dataset.openslots;
@@ -50,9 +62,10 @@ class ShopItem extends Phaser.GameObjects.Image {
                     }
                     document.getElementById("potion-slots").dataset.openslots = numOpen - 1;
                 }
-                this.setVisible(false);
-                this.price.setVisible(false);
-                this.scene.scene.get("HudScene").events.emit("itemPurchased", this.itemData, this.labelHTML);
+                this.ele.style.visibility = "hidden";
+                this.scene.sound.play("coin_purchase",{volume: 0.5});
+                this.scene.scene.get("HudScene").events.emit("itemPurchased", this.itemData);
+                this.scene.scene.get("InventoryScene").events.emit("itemPurchased", this.itemData);
             }
         });
     }

@@ -10,24 +10,27 @@ class HudScene extends Phaser.Scene {
     }
 
     createUI() {
-        // let backgroundHTML = `<div style= "height: 30px; width: 100px; background-image: linear-gradient(to right, black,80%,transparent);"> </div>`;
-        // let background = this.add.dom(50, 25).createFromHTML(backgroundHTML);
 
         this.createHeartUI();
         this.createMoneyUI();
         this.createPotionSlotUI();
         this.createArtifactSlotUI();
        
-
         let backpackHtml = `
                         <div id= "backpack-ui" style = "cursor: pointer">
                             <img src="assets/UI/backpack.png" class = "pixelImg">
                         </div>`;
         let backpackDom = this.add.dom(590, 170).createFromHTML(backpackHtml);
         backpackDom.getChildByID("backpack-ui").addEventListener("pointerdown", () => {
-            this.scene.run("InventoryScene");
+            if(this.scene.isActive("InventoryScene")){
+                return this.scene.get("InventoryScene").sleepTransition();
+            }
+            this.scene.run("InventoryScene",{artifactSlots: this.slots});
             this.scene.get("CampfireScene").events.emit("setInvisible");
         });
+
+        let dayHTML = `<p style = "font: 16px kreon; color: wheat; user-select: none; pointer-events: none; border-bottom: solid wheat;">Night 1</p>`;
+        let day = this.add.dom(30, 30).createFromHTML(dayHTML);
     }
 
     createHeartUI() {
@@ -69,6 +72,10 @@ class HudScene extends Phaser.Scene {
             let newVal = parseInt(playerMoney.dataset.money) - itemData.price;
             playerMoney.changeTo(newVal);
         });
+        this.events.on("incrementGold", (num) => {
+            let newVal = parseInt(playerMoney.dataset.money) + num;
+            playerMoney.changeTo(newVal);
+        });
 
     }
 
@@ -89,15 +96,15 @@ class HudScene extends Phaser.Scene {
         let potionDom = this.add.dom(610, 80).createFromHTML(potionHtml);
 
         let pslots = [];
-        pslots.push(new PotionSlot(this, 510 + 13, 90, potionDom.getChildByID("p1")));
-        pslots.push(new PotionSlot(this, 548 + 13, 90,potionDom.getChildByID("p2")));
-        pslots.push(new PotionSlot(this, 586 + 13, 90 ,potionDom.getChildByID("p3")));
+        pslots.push(new PotionSlot(this,potionDom.getChildByID("p1")));
+        pslots.push(new PotionSlot(this,potionDom.getChildByID("p2")));
+        pslots.push(new PotionSlot(this,potionDom.getChildByID("p3")));
 
-        this.events.on("itemPurchased", (itemData, itemLabel) => {
+        this.events.on("itemPurchased", (itemData) => {
             if (itemData.type == "potion") {
                 for (let slot of pslots) {
                     if (slot.currentPotion == null) {
-                        slot.addPotion(itemData, itemLabel);
+                        slot.addPotion(itemData);
                         break;
                     }
                 }
@@ -122,21 +129,30 @@ class HudScene extends Phaser.Scene {
         </div>`;
         let artifactDom = this.add.dom(620, 30).createFromHTML(artifactHtml);
 
-        let slots = [];
-        slots.push(new ArtifactSlot(this, 510 + 10, 40, artifactDom.getChildByID("a1")));
-        slots.push(new ArtifactSlot(this, 548 + 10, 40, artifactDom.getChildByID("a2")));
-        slots.push(new ArtifactSlot(this, 586 + 10, 40, artifactDom.getChildByID("a3")));
+        this.slots = [];
+        this.slots.push(new ArtifactSlot(this,artifactDom.getChildByID("a1")));
+        this.slots.push(new ArtifactSlot(this,artifactDom.getChildByID("a2")));
+        this.slots.push(new ArtifactSlot(this,artifactDom.getChildByID("a3")));
 
-        this.events.on("equipItem", (artifactData,itemLabel) => {
-            for (let slot of slots) {
-                if(slot.currentArtifact == artifactData.name){
-                    break;
-                }
+        this.slots.items = [];
+        this.slots.canEquip = (name) =>{
+            return !(this.slots.items.length == 3 || this.slots.items.includes(name));
+        }
+
+        this.events.on("equipItem", (artifactData) => {
+            for (let slot of this.slots) {
                 if (slot.currentArtifact == null) {
-                    let itemLabel = `<div class ="item-description"> <span style= "color: ${artifactData.rarity}; "> ${artifactData.name}</span> <br> ${artifactData.description} 
-                                     </div>`
-                    slot.addArtifact(artifactData,itemLabel);
-                    break;
+                    this.slots.items.push(artifactData.name);
+                    return slot.addArtifact(artifactData);
+                }
+            }
+        });
+
+        this.events.on("unequipItem", (name) => {
+            for (let slot of this.slots) {
+                if (slot.currentArtifact == name) {
+                    this.slots.items.splice(this.slots.indexOf(name),1);
+                    return slot.removeArtifact();
                 }
             }
         });

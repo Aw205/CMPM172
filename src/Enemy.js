@@ -5,7 +5,9 @@ class Enemy extends Phaser.GameObjects.Sprite {
 
         this.setScale(3);
         this.play({ key: "Idle", frameRate: 4, repeat: -1 });
-        this.data = data;
+        this.enemyData = data;
+
+        this.damage = 0;
 
         this.#createListeners();
         this.#createAttackIcon();
@@ -24,9 +26,9 @@ class Enemy extends Phaser.GameObjects.Sprite {
 
         let pos = this.getRightCenter();
         this.tooltip = this.scene.add.image(pos.x, pos.y, "questionMark").setScale(0.5);
-        let labelHTML = `<p style= "padding: 10px; border-style: double; border-radius: 10px; background-color: rgb(20, 20, 20); font: 12px kreon; color: white" >
-        <span style= "color: Gold; "> ${this.data.name} </span> <br><br> ${this.data.description} <br><br> Weakness: 
-        <span style= "color: ${colorMap.get(this.data.weakness)};">${this.data.weakness}</span> </p>`;
+        let labelHTML = `<p style= "padding: 10px; border-style: solid; border-radius: 10px; background-color: rgb(20, 20, 20); font: 12px kreon; border-color: DarkCyan; color: wheat;" >
+        <span style= "color: Gold; "> ${this.enemyData.name} </span> <br> Weakness: 
+        <span style= "color: ${colorMap.get(this.enemyData.weakness)};">${this.enemyData.weakness}</span> </p>`;
         this.descriptionLabel = this.scene.add.dom(0, 0).createFromHTML(labelHTML).setVisible(false);
 
         this.tooltip.setInteractive();
@@ -48,7 +50,7 @@ class Enemy extends Phaser.GameObjects.Sprite {
     }
 
     #createHealthBar() {
-        this.healthBar = new HealthBar(this.scene, this.x + 20, this.y + 60,50);
+        this.healthBar = new HealthBar(this.scene, this.x + 20, this.y + 60,this.enemyData.health);
         this.healthBar.setWidth();
 
         this.on("damageEnemy",(damage)=>{
@@ -67,17 +69,17 @@ class Enemy extends Phaser.GameObjects.Sprite {
                 this.attackDOM.setVisible(false);
                 this.healthBar.setVisible(false);
                 this.setVisible(false);
-                // this.group = this.scene.add.group([this,this.healthBar,this.attackDOM,this.tooltip]);
-                // this.group.setVisible(false);
+                
             }
         });
     }
 
     #createAttackIcon() {
 
+        this.calculateDamage();
         let pos2 = this.getTopCenter();
-        let attackHTML = `<p style= "float: left; font: 16px kreon; color: DarkSalmon">16</p>
-                          <img src="assets/UI/attackIcon.png" style = "transform: scale(0.7,0.7) translateY(25%);" > `;
+        let attackHTML = `<p id = "damage" style= "float: left; font: 16px kreon; color: DarkSalmon">${this.damage}</p>
+                          <img src="assets/UI/swicon.svg" style = "transform: translateX(-20%);" > `;
         this.attackDOM = this.scene.add.dom(pos2.x - 20, pos2.y).createFromHTML(attackHTML);
         this.scene.add.tween({
             targets: [this.attackDOM],
@@ -88,6 +90,12 @@ class Enemy extends Phaser.GameObjects.Sprite {
             loop: -1
         });
 
+    }
+
+    calculateDamage(){
+
+        let range = this.enemyData.damage.split('-');
+        this.damage = Phaser.Math.Between(parseInt(range[0]),parseInt(range[1]));
     }
 
     attack() {
@@ -109,8 +117,10 @@ class Enemy extends Phaser.GameObjects.Sprite {
             onComplete: () => {
                 emitter.explode(50);
                 //this.displayDamageText(color, damage, this.enemy.x, this.enemy.y);
-                this.scene.events.emit("damagePlayer", 16);
+                this.scene.events.emit("damagePlayer", this.damage);
                 this.scene.time.delayedCall(1000, () => {
+                    this.calculateDamage();
+                    this.attackDOM.getChildByID("damage").innerHTML = this.damage;
                     emitter.destroy(true);
                     this.scene.events.emit("startPlayerTurn");
                 });

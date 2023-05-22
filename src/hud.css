@@ -8,6 +8,8 @@
 }
 
 .pixelImg {
+    user-select: none;
+    cursor: pointer;
     image-rendering: pixelated;
 }
 
@@ -22,27 +24,29 @@
 .tooltiptext {
     visibility: hidden;
     padding: 5px;
+    border-color: dimgray;
     border-style: solid;
     border-radius: 10px;
     background-color: rgb(20, 20, 20);
     font: 10px kreon;
     color: tan;
-    top: 100%;
+    top: 105%;
     position: absolute;
-    
+
 }
 
 .item-description {
     visibility: hidden;
     padding: 5px;
+    border-color: dimgray;
     border-style: solid;
     border-radius: 10px;
     background-color: rgb(20, 20, 20);
     font: 10px kreon;
-    color: tan;
-    top: 100%;
+    color: BurlyWood;
     position: absolute;
-    
+    top: 100%;
+    width: 100px;
 }
 
 #money-ui:hover .tooltiptext {
@@ -69,12 +73,12 @@
     border-style: solid;
     border-radius: 5px;
     border-color: rgb(50, 50, 50);
-    border-bottom-color:gray;
+    border-bottom-color: gray;
     outline: solid 1px rgb(78, 76, 76);
     transition: outline 0.1s;
 }
 
-.artifact-slot:hover{
+.artifact-slot:hover {
     outline-width: 2px;
 }
 
@@ -94,11 +98,11 @@
     border-style: solid;
     border-radius: 20px;
     border-color: rgb(50, 50, 50);
-    border-bottom-color:gray;
+    border-bottom-color: gray;
     transition: outline 0.1s;
 }
 
-.potion-slot:hover{
+.potion-slot:hover {
     outline-width: 2px;
 }
 
@@ -108,4 +112,109 @@
 
 .potion-slot:hover div {
     visibility: visible;
+}
+
+.round-time-bar {
+    height: 5px;
+    width: 48px;
+    border: 2px solid Bisque;
+    transform-origin: left center;
+    visibility: hidden;
+    background: #c54;
+    animation: roundtime calc(var(--duration) * 1s) linear forwards;
+}
+
+@keyframes roundtime {
+    to {
+        width: 0px;
+    }
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    border: 2px double rgba(105, 105, 105, 0.34);
+    border-radius: 10px;
+    background-color: transparent;
+    gap: 10px 50px;
+    padding: 10px;
+
+}
+
+.shop-slot {
+    user-select: none;
+    position: relative;
+}
+
+.shop-slot:hover {
+    z-index: 10;
+}
+
+.shop-slot:hover span {
+    visibility: visible;
+}
+
+.shop-slot:hover div {
+    visibility: visible;
+}
+
+.silhouette-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    border: 1px solid dimgray;
+    border-radius: 10px;
+    background-color: rgba(43, 41, 41, 0.466);
+    gap: 10px 50px;
+    padding: 10px;
+
+}
+
+.artifact-window {
+
+    width: 250px;
+    height: 250px;
+    border: 1px solid dimgray;
+    border-radius: 5px;
+    display: inline-block;
+    background: radial-gradient(circle farthest-corner at 50% 40%, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 1) 35%);
+}
+
+.artifact-name {
+
+    user-select: none;
+    font: 18px kreon;
+    color: GoldenRod;
+    border-bottom-style: double;
+    border-radius: 5px;
+    padding: 5px;
+    border-color: DarkGoldenRod;
+    border-width: 3px;
+    width: fit-content;
+    margin: auto;
+}
+
+.artifact-description {
+
+    user-select: none;
+    font: 12px kreon;
+    color: NavajoWhite;
+    padding: 5px;
+    text-align: center;
+    position: relative;
+    top: 60%;
+}
+
+.equip-button {
+
+    font: 12px kreon;
+    color: Silver;
+    border-color: Gray;
+    border-radius: 5px;
+    background-color: Black;
+    padding: 5px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    visibility: hidden;
+
 }

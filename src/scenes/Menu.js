@@ -106,6 +106,7 @@ class Menu extends Phaser.Scene {
             });
         });
         this.selection.getChildByID("options").addEventListener("pointerup", () => {
+            this.scene.pause().run("SettingsScene");
         });
         this.selection.getChildByID("credits").addEventListener("pointerup", () => {
         });

@@ -2,6 +2,7 @@ class Board extends Phaser.GameObjects.GameObject {
 
     static orbArray = null;
     static timeLabel = null;
+    static timer = null;
 
     constructor(scene, x, y) {
         super(scene);
@@ -25,22 +26,26 @@ class Board extends Phaser.GameObjects.GameObject {
             this.solveBoard();
         });
 
-        this.scene.events.on("startPlayerTurn",()=>{
+        this.scene.events.on("startPlayerTurn", () => {
 
-            for(let arr of this.orbArray){
+            for (let arr of this.orbArray) {
                 this.scene.add.tween({
                     targets: arr,
                     alpha: 1,
                     duration: 500,
                 })
-                for(let orb of arr){
+                for (let orb of arr) {
                     orb.setInteractive();
                 }
             }
         });
 
-        let movementTimeHTML = `<p id = "time" style= "user-select: none; pointer-events: none; padding: 5px; border-style: double; border-radius: 5px; background-color: rgb(20, 20, 20,0.6); font: 8px kreon; color: white" >Move Time: 10s</p>`;
-        Board.timeLabel = this.scene.add.dom(100, 140).createFromHTML(movementTimeHTML).setVisible(false);
+        let moveTimeHTML = `<p id = "time" style= "padding: 5px; border-style: solid; border-radius: 5px; background-color: rgb(20, 20, 20, 0.8); font: 8px kreon; color: white" >Move Time: 10s</p>`;
+        Board.timeLabel = this.scene.add.dom(100, 140).createFromHTML(moveTimeHTML).setVisible(false);
+
+
+        let timerHTML = `<div id ="timer"class="round-time-bar" data-style="smooth" style="--duration: 6;"> </div>`
+        Board.timer = this.scene.add.dom(100, 100).createFromHTML(timerHTML);
 
     }
 
@@ -60,12 +65,12 @@ class Board extends Phaser.GameObjects.GameObject {
                 let y = this.y + row * Orb.HEIGHT;
 
                 this.orbArray[row][col] = new Orb(this.scene, x, y, row, col, this.orbImages[rand]);
-                this.orbArray[row][col].type = rand;
+                this.orbArray[row][col].type = Object.values(OrbType)[rand];
 
                 rand = Phaser.Math.Between(0, 4);
 
                 this.skyfallArray[row][col] = new Orb(this.scene, x, y - this.BOARD_HEIGHT * Orb.HEIGHT, row, col, this.orbImages[rand]).setVisible(false);
-                this.skyfallArray[row][col].type = rand;
+                this.skyfallArray[row][col].type = Object.values(OrbType)[rand];
 
                 let slot = new OrbSlot(this.scene, x, y);
                 slot.orb = this.orbArray[row][col];
@@ -91,13 +96,13 @@ class Board extends Phaser.GameObjects.GameObject {
         }
         else {
             this.scene.scene.get("CombatScene").events.emit("solveComplete");
-            for(let arr of this.orbArray){
+            for (let arr of this.orbArray) {
                 this.scene.add.tween({
                     targets: arr,
                     alpha: 0.5,
                     duration: 500,
                     delay: 500
-                })
+                });
             }
             console.log("all combos have finished");
         }
@@ -116,7 +121,7 @@ class Board extends Phaser.GameObjects.GameObject {
 
                     let rand = Phaser.Math.Between(0, 4);
                     this.skyfallArray[row][col] = new Orb(this.scene, x, y - this.BOARD_HEIGHT * Orb.HEIGHT, row, col, this.orbImages[rand]).setVisible(false);
-                    this.skyfallArray[row][col].type = rand;
+                    this.skyfallArray[row][col].type = Object.values(OrbType)[rand];;
                 }
             }
         }
@@ -257,7 +262,6 @@ class Board extends Phaser.GameObjects.GameObject {
                 this.orbArray[newRow][col] = current;
 
                 this.skyfallArray[r][col] = null;
-
             }
             dropDist = 0;
         }
@@ -266,6 +270,34 @@ class Board extends Phaser.GameObjects.GameObject {
 
     isInBounds(row, col) {
         return (row > -1 && row < this.BOARD_HEIGHT && col > -1 && col < this.BOARD_WIDTH);
+    }
+
+
+     changeOrb() {
+
+        console.log("changing orb");
+
+        for (let arr of this.orbArray) {
+            for (let orb of arr) {
+
+                if(orb.type == OrbType.Fire || orb.type == OrbType.Grass){
+                    
+                    let img = this.scene.add.image(orb.x,orb.y,this.orbImages[orb.type.description]).setScale(0);
+                    orb.setTexture("water");
+                    orb.type = OrbType.Water;
+                   
+                    this.scene.tweens.add({
+                        targets: img,
+                        scale: 2,
+                        duration: 500,
+                        yoyo: true,
+                        onComplete: ()=>{
+                            img.destroy(true);
+                        }
+                    });
+                }
+            }
+        }
     }
 
 }

@@ -1,32 +1,43 @@
 [
     {
         "name": "Floor 1",
-        "enemies": ["Blue Slime"]
+        "enemies": ["Blue Slime"],
+        "gold": 40
 
     },
     {
         "name": "Floor 2",
-        "enemies": ["Blue Slime", "Blue Slime"]
+        "enemies": ["Blue Slime", "Blue Slime"],
+        "gold": 50
+
        
     },
     {
         "name": "Floor 3",
-        "enemies": ["Blue Slime"]
+        "enemies": ["Blue Slime"],
+        "gold": 60
+
        
     },
     {
         "name": "Floor 4",
-        "enemies": ["Blue Slime"]
+        "enemies": ["Blue Slime"],
+        "gold": 70
+
        
     },
     {
         "name": "Floor 5",
-        "enemies": ["Blue Slime"]
+        "enemies": ["Blue Slime"],
+        "gold": 80
+
         
     },
     {
         "name": "Floor 6",
-        "enemies": ["Blue Slime"]
+        "enemies": ["Blue Slime"],
+        "gold": 100
+
     }
    
 ]

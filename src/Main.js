@@ -7,13 +7,7 @@ let config = {
   width: 640,
   height: 480,
   resolution: window.devicePixelRatio,
-  physics: {
-    default: 'arcade',
-    arcade: {
-      //debug: true
-    }
-  },
-  scene: [LoadingScreen,Menu,DialogModal,CombatScene,ShopScene,HudScene,InventoryScene,CampfireScene,SettingsScene],
+  scene: [LoadingScreen,Menu,DialogModal,CombatScene,ShopScene,HudScene,InventoryScene,CampfireScene,SettingsScene,RewardsScene],
   scale: {
     mode: Phaser.Scale.FIT,
   },

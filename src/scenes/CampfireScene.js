@@ -6,8 +6,15 @@ class CampfireScene extends Phaser.Scene {
 
     create() {
 
-        this.sound.play("campfire_music", { loop: true });
+        this.sound.play("campfire_music", { loop: true, volume: 0.2 });
+        this.add.tween({
+            targets: this.sound.get("campfire_music"),
+            volume: 1,
+            duration: 1000
+        });
+
         this.scene.sendToBack();
+        this.cameras.main.fadeIn(500);
 
         this.add.image(320, 240, "hillBackground").setPipeline("Light2D");
         this.campfire = this.add.sprite(320, 170, "campfire").play("campfireAnim").setScale(4).setPipeline("Light2D");
@@ -16,10 +23,6 @@ class CampfireScene extends Phaser.Scene {
         this.createSelectionButtons();
         this.createListeners();
 
-        let dayHTML = `<p style = "font: 16px kreon; color: wheat; user-select: none; pointer-events: none; border-bottom: solid wheat;">Night 1</p>`;
-        let day = this.add.dom(30, 30).createFromHTML(dayHTML);
-
-        
     }
 
     createSelectionButtons() {
@@ -27,16 +30,29 @@ class CampfireScene extends Phaser.Scene {
         let html = ` 
                 <link rel = "stylesheet" href= "./src/SelectionButton.css">
                 <button class="select" id = "sleep" >Sleep</button>
-                <button class="select" id = "fight" >Fight</button>
+                <button class="select" id = "fight" >
+                <div style= "display: block;">
+                    <div> Fight </div>
+                   
+                </div>
+                </button>
                 <button class="select" id = "shop"" >Shop</button> `;
         this.selection = this.add.dom(210, 240).createFromHTML(html);
+
+        //<div style="font-size: 12px; font-style: italic;"> Floor 1 </div>
 
         this.selection.getChildByID("fight").addEventListener("click", () => {
             this.scene.sleep().run("CombatScene");
         });
         this.selection.getChildByID("shop").addEventListener("click", () => {
-            this.selection.setVisible(false);
-            this.scene.pause().run("ShopScene");
+            this.add.tween({
+                targets: this.selection,
+                alpha: 0,
+                duration:200,
+                onComplete:()=>{
+                    this.scene.run("ShopScene");
+                }
+            });
         });
         this.selection.getChildByID("sleep").addEventListener("click", () => {
         });
@@ -59,10 +75,23 @@ class CampfireScene extends Phaser.Scene {
 
     createListeners(){
         this.events.on("setInvisible", () => {
-            this.selection.setVisible(false);
+            //this.selection.setVisible(false);
+            this.add.tween({
+                targets: this.selection,
+                alpha: 0,
+                duration:200,
+            });
         });
         this.events.on("setVisible", () => {
             this.selection.setVisible(true);
+            this.add.tween({
+                targets: this.selection,
+                alpha: 1,
+                duration:200,
+            });
+        });
+        this.events.on("wake",()=>{
+            this.cameras.main.fadeIn(500);
         });
     }
 

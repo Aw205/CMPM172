@@ -1,56 +1,94 @@
 [
     {
-        "name": "Cheeseburger",
-        "description": "Provides permanent 10 life regen.",
+        "name": "Fire Sword",
+        "description": "+30% Fire damage",
         "rarity": "Gold",
-        "price": "150"
+        "price": "150",
+        "modifiers": {
+            "fireDamage": 1.3
+        }
     },
     {
-        "name": "Emerald Ring",
-        "description": "+ 1 combo count.",
+        "name": "Ice Sword",
+        "description": "+30% Water damage",
         "rarity": "Gold",
-        "price": "130"
+        "price": "150",
+        "modifiers": {
+            "waterDamage": 1.3
+        }
     },
     {
-        "name": "Holy Amulet",
-        "description": "Gives extra damage resistance.",
+        "name": "Rose Sword",
+        "description": "+30% Grass damage",
         "rarity": "Gold",
-        "price": "110"
+        "price": "150",
+        "modifiers": {
+            "grassDamage": 1.3
+        }
     },
     {
-        "name": "Blazing Sword",
-        "description": "Attacks inflict burning debuff.",
+        "name": "Sun Sword",
+        "description": "+25% Light damage & +15% Dark damage",
         "rarity": "Gold",
-        "price": "160"
+        "price": "150",
+        "modifiers": {
+            "lightDamage": 1.25,
+            "darkDamage": 1.15
+        }
     },
     {
-        "name": "Ruby Pendant",
-        "description": "+ 30% fire damage.",
+        "name": "Moon Sword",
+        "description": "+25% Dark damage & +15% Light damage",
         "rarity": "Gold",
-        "price": "140"
+        "price": "150",
+        "modifiers": {
+            "darkDamage": 1.25,
+            "lightDamage": 1.15
+        }
     },
     {
-        "name": "Viking Helm",
-        "description": "Increased crit chance.",
+        "name": "Guardian Sword",
+        "description": "+25% critical chance",
         "rarity": "Gold",
-        "price": "125"
+        "price": "150",
+        "modifiers": {
+            "critChance": 1.25
+        }
     },
     {
-        "name": "Frost Shield",
-        "description": "+ 50 max health.",
+        "name": "Flower Katana",
+        "description": "+3 bonus combos",
         "rarity": "Gold",
-        "price": "130"
+        "price": "150",
+        "modifiers": {
+            
+        }
     },
     {
-        "name": "Flame Barrier",
-        "description": "+ 30% fire damage.",
+        "name": "Royal Sword",
+        "description": "+10% universal damage.",
         "rarity": "Gold",
-        "price": "150"
+        "price": "150",
+        "modifiers": {
+            "universalDamage": 1.1
+        }
     },
     {
-        "name": "Shadow Shield",
-        "description": "+ 30% dark damage.",
+        "name": "Shadow Sword",
+        "description": "+35% Dark damage.",
         "rarity": "Gold",
-        "price": "140"
+        "price": "150",
+        "modifiers": {
+            "darkDamage": 1.35
+        }
+    },
+    {
+        "name": "Light Sword",
+        "description": "+35% Light damage.",
+        "rarity": "Gold",
+        "price": "150",
+        "modifiers": {
+            "lightDamage": 1.35
+        }
     }
 ]

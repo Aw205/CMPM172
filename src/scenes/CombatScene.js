@@ -1,3 +1,14 @@
+
+
+var modifiers = {
+    fireDamage: 1,
+    waterDamage: 1,
+    grassDamage: 1,
+    lightDamage: 1,
+    darkDamage: 1,
+    universalDamage: 1,
+};
+
 class CombatScene extends Phaser.Scene {
 
     constructor() {
@@ -5,11 +16,12 @@ class CombatScene extends Phaser.Scene {
     }
 
     create(data) {
+
         this.data = data;
         this.cameras.main.setBackgroundColor(0x181e1e);
 
-        this.add.image(320,240,"stars").setScale(1.5).setPipeline("Light2D");
-        this.add.image(320,260,"star_cloud").setScale(1.3).setPipeline("Light2D");
+        this.add.image(320, 240, "stars").setScale(1.5).setPipeline("Light2D");
+        this.add.image(320, 260, "star_cloud").setScale(1.3).setPipeline("Light2D");
 
         this.battlePos = [];
         this.battlePos.push([{ x: 320, y: 200 }]);
@@ -21,30 +33,32 @@ class CombatScene extends Phaser.Scene {
         this.enemies = [];
         this.createEnemies();
 
-        this.colors = ["#FF0000", "#0096FF", "#50C878", "#702963", "#FFBF00"];
+        this.damageColors = ["LightCoral", "LightSkyBlue", "LightGreen", "Plum", "Gold"];
         this.particleArray = ["fire_particle", "water_particle", "wood_particle", "dark_particle", "light_particle"];
 
         this.events.on("comboMatched", this.onComboMatched.bind(this));
-        this.healthBar = new HealthBar(this, 345, 270,100);
+        this.healthBar = new HealthBar(this, 345, 270, 100);
         this.events.on("damagePlayer", (damage) => {
             this.healthBar.onHit(damage);
         });
+
+
+
+
         this.createComboCounter();
+        this.createMultiplier();
+
         this.board = new Board(this, 240, 300);
 
         this.createLights();
 
-        // let html = `<div style = "border: 2px solid black; border-radius: 10px; background-color: Black; width: 200px; height: 300px;">
-        //                 <p style = " position: absolute; right: 70px;font: 16px kreon; color: wheat; user-select: none; pointer-events: none; border-bottom: solid wheat;">Rewards</p
-        //                 <button style = "
-        //             </div>`
-                   
-        // let rewardsWindow = this.add.dom(320,240).createFromHTML(html);
-
-        this.events.on("enemyDied",(enemy)=>{
-            this.enemies.splice(this.enemies.indexOf(enemy),1);
+        this.events.on("enemyDied", (enemy) => {
+            this.enemies.splice(this.enemies.indexOf(enemy), 1);
         });
-        
+
+
+        //this.createChangeOrbButton();
+
     }
 
 
@@ -52,8 +66,8 @@ class CombatScene extends Phaser.Scene {
 
         this.lights.enable();
         this.lights.setAmbientColor(0x4d494f);
-        this.lights.addLight(200, 200, 100,0xaeecf4,1);
-        this.lights.addLight(440, 200, 200,0xaeecf4,1);
+        this.lights.addLight(200, 200, 100, 0xaeecf4, 1);
+        this.lights.addLight(440, 200, 200, 0xaeecf4, 1);
     }
 
 
@@ -70,27 +84,43 @@ class CombatScene extends Phaser.Scene {
 
         let positions = this.battlePos[data[level].enemies.length - 1];
 
-        for(let i = 0;i<data[level].enemies.length;i++){
+        for (let i = 0; i < data[level].enemies.length; i++) {
             let pos = positions[i];
             this.add.image(pos.x, pos.y, "battleCircle").setScale(2);
-            this.enemies.push(new Enemy(this, pos.x, pos.y - 40, data[level].enemies[i],this.enemyMap.get(data[level].enemies[i])));
+            this.enemies.push(new Enemy(this, pos.x, pos.y - 40, data[level].enemies[i], this.enemyMap.get(data[level].enemies[i])));
         }
 
     }
 
-    onComboMatched(color, numOrbs, startPos) {
+    getDamageMult(orbType) {
+        switch (orbType) {
+            case OrbType.Fire:
+                return modifiers.fireDamage;
+            case OrbType.Water:
+                return modifiers.waterDamage;
+            case OrbType.Grass:
+                return modifiers.grassDamage;
+            case OrbType.Dark:
+                return modifiers.darkDamage;
+            case OrbType.Light:
+                return modifiers.lightDamage;
+        }
+    }
 
-        let damage = numOrbs;
+    onComboMatched(orbType, numOrbs, startPos) {
+
+        let damage = Math.round((2 + numOrbs * modifiers.universalDamage) * this.getDamageMult(orbType));
         this.comboCounter.increment();
-        if(this.enemies.length != 0){
-            this.playDamageAnimation(color, damage, startPos);
+        this.multiplier.increase(damage * 0.35);
+        if (this.enemies.length != 0) {
+            this.playDamageAnimation(orbType, damage, startPos);
         }
-        
+
     }
 
-    playDamageAnimation(color, damage, startPos) {
+    playDamageAnimation(orbType, damage, startPos) {
 
-        let particleEmitter = this.add.particles(startPos.x, startPos.y, this.particleArray[color]);
+        let particleEmitter = this.add.particles(startPos.x, startPos.y, this.particleArray[orbType.description]);
 
         particleEmitter.setConfig({
             quantity: 5,
@@ -99,8 +129,8 @@ class CombatScene extends Phaser.Scene {
             scale: { random: true, start: 1, end: 0 }
         });
 
-        let enemy = this.enemies[Phaser.Math.Between(0,this.enemies.length-1)];
-        enemy.emit("damageEnemy",damage);
+        let enemy = this.enemies[Phaser.Math.Between(0, this.enemies.length - 1)];
+        enemy.emit("damageEnemy", damage);
 
         this.add.tween({
             targets: particleEmitter,
@@ -109,8 +139,8 @@ class CombatScene extends Phaser.Scene {
             duration: 500,
             onComplete: () => {
                 particleEmitter.explode(50);
-                this.displayDamageText(color, damage, enemy.x, enemy.y);
-                enemy.emit("updateHealthBar",damage);
+                this.displayDamageText(this.damageColors[orbType.description], damage, enemy.x, enemy.y);
+                enemy.emit("updateHealthBar", damage);
                 this.time.delayedCall(1000, () => {
                     particleEmitter.destroy(true);
                 });
@@ -120,13 +150,13 @@ class CombatScene extends Phaser.Scene {
 
     displayDamageText(color, damage, posX, posY) {
 
-        let html = `<p style= "font: 16px kreon; color: white" >${damage}</p>`;
+        let html = `<p style= "font: 28px kreon; color: ${color}" >${damage}</p>`;
         let damageText = this.add.dom(posX, posY).createFromHTML(html);
         this.tweens.add({
             targets: damageText,
             x: posX + Phaser.Math.Between(-50, 50),
             y: posY - Phaser.Math.Between(50, 70),
-            alpha: 0,
+            alpha: 0.4,
             duration: 1000,
             ease: "Sine.InOut",
             onComplete: () => {
@@ -163,6 +193,56 @@ class CombatScene extends Phaser.Scene {
         this.createBonusDamageAnimation();
     }
 
+
+    createMultiplier() {
+
+
+        let html = `<p style = "display: inline-block; font: 8px kreon; color: DarkCyan; border-bottom: 1px solid; user-select: none; pointer-events: none;" >multiplier</p>
+        <p id= "multiplier" data-num= "0" style= "display: inline-block; font: 16px kreon; color: CadetBlue; user-select: none; pointer-events: none;" >0.00x</p>`;
+        let multiplierText = this.add.dom(50, 120).createFromHTML(html);
+        this.multiplier = multiplierText.getChildByID("multiplier");
+
+        this.multiplier.changeTo = (newVal) => {
+            this.multiplier.dataset.num = newVal;
+            this.tweens.addCounter({
+                from: parseFloat(this.multiplier.innerText),
+                to: newVal,
+                duration: 500,
+                onUpdate: tween => {
+                    this.multiplier.innerText = tween.getValue();
+                }
+            });
+        }
+
+        this.multiplier.increase = (num) => {
+            let newVal = (num + parseFloat(this.multiplier.dataset.num)).toFixed(2);
+            this.multiplier.dataset.num = newVal;
+            this.tweens.addCounter({
+                from: parseFloat(this.multiplier.innerText),
+                to: newVal,
+                duration: 200,
+                onUpdate: tween => {
+                    this.multiplier.innerText = tween.getValue().toFixed(2) + "x";
+                }
+            });
+        }
+
+    }
+
+
+    createChangeOrbButton(){
+
+        let html = `<button id = "orb-change" style = "color: wheat; border-radius: 2px; background-color: Black;" >orb change</button>`;
+        let but = this.add.dom(300, 120).createFromHTML(html);
+        but.getChildByID("orb-change").addEventListener("click",()=>{
+            this.board.changeOrb();
+        });
+    }
+
+
+
+
+
     createBonusDamageAnimation() {
 
         let particleEmitter = this.add.particles(100, 120, 'particles');
@@ -180,13 +260,25 @@ class CombatScene extends Phaser.Scene {
 
         this.events.on("solveComplete", () => {
 
-            if(this.enemies.length == 0){
-                return;
-            }
-            let enemy = this.enemies[Phaser.Math.Between(0,this.enemies.length-1)];
+
+            let enemy = this.enemies[Phaser.Math.Between(0, this.enemies.length - 1)];
             this.time.delayedCall(2000, () => {
+
+                if (!enemy) {
+                    this.add.tween({
+                        targets: this.cameras.main,
+                        alpha: 0.5,
+                        duration: 1000,
+                        onComplete: () => {
+                            this.scene.run("RewardsScene");
+                        }
+                    });
+                    return;
+                }
+
                 this.comboCounter.changeTo(0);
                 particleEmitter.stopFollow();
+
                 this.add.tween({
                     targets: particleEmitter,
                     particleX: enemy.x - particleEmitter.x,
@@ -232,6 +324,6 @@ class CombatScene extends Phaser.Scene {
             frames: [{ key: 'particles', frame: 2 }]
         });
 
-        let anim = this.anims.createFromAseprite("blue_slime");
+        this.anims.createFromAseprite("blue_slime");
     }
 }

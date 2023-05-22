@@ -3,14 +3,30 @@
 }
 
 .menu {
-    font: 20px kreon; 
-    color: black; 
-    border-radius: 2px; 
-    background-color: Gray; 
-    margin: 10px; 
+    font: 20px kreon;
+    color: black;
+    border-radius: 2px;
+    background-color: Gray;
+    margin: 10px;
     opacity: 0.3;
 }
 
 #menuContainer {
     display: grid;
+}
+
+.volume {
+
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+    width:200px;
+
+   
+}
+.volume::-webkit-slider-runnable-track{
+    height: 5px;
+    background: #555;
+    border-radius: 15px;
 }

@@ -1,0 +1,39 @@
+[
+    {
+        "name": "Health Potion",
+        "description": "Convert Fire to Water orbs",
+        "rarity": "MediumSeaGreen",
+        "price": "30"
+    },
+    {
+        "name": "Regen Potion",
+        "description": "Convert Fire to Wood orbs",
+        "rarity": "MediumSeaGreen",
+        "price": "35"
+    },
+    {
+        "name": "Attack Potion",
+        "description": "Convert Fire to Dark orbs ",
+        "rarity": "DodgerBlue",
+        "price": "55"
+    },
+    {
+        "name": "Combo Potion",
+        "description": "+3 combo count at the end of each turn.",
+        "rarity": "MediumPurple",
+        "price": "70"
+    },
+    {
+        "name": "Time Potion",
+        "description": "Increases movement time by 5 seconds.",
+        "rarity": "DodgerBlue",
+        "price": "65"
+    },
+    {
+        "name": "Refresh Potion",
+        "description": "Reshuffles the board.",
+        "rarity": "MediumPurple",
+        "price": "65"
+    }
+   
+]
