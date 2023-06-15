@@ -7,7 +7,7 @@ let config = {
   width: 640,
   height: 480,
   resolution: window.devicePixelRatio,
-  scene: [LoadingScreen,Menu,DialogModal,CombatScene,ShopScene,HudScene,InventoryScene,CampfireScene,SettingsScene,RewardsScene],
+  scene: [LoadingScreen,Menu,DialogModal,CombatScene,ShopScene,HudScene,InventoryScene,CampfireScene,SettingsScene,RewardsScene,AffinitySelectionScene,VictoryScene,CreditsScene,DeathScene,TutorialScene],
   scale: {
     mode: Phaser.Scale.FIT,
   },

@@ -21,12 +21,7 @@
         "heart": "images/heart.png",
         "cursor": "UI/sAxCursor.png",
         "dialogBox": "UI/dialogBox.png",
-        "goldFrame": "UI/goldFrame.png",
-        "potionSilhouette": "UI/potionSilhouette.png",
-        "hudFrame": "UI/hudFrame.png",
-        "shopFrame": "UI/shopFrame.png",
         "battleCircle": "images/battleCircle.png",
-        "questionMark": "UI/Question-Mark.png",
         "clouds_front_t": "images/parallax_fc/clouds_front_t_fc.png",
         "clouds_front": "images/parallax_fc/clouds_front_fc.png",
         "clouds_mid_t": "images/parallax_fc/clouds_mid_t_fc.png",
@@ -57,9 +52,17 @@
 
     },
     "aseprite": {
-        "blue_slime": [
-            "enemy/blueSlime.png",
-            "enemy/blueSlime.json"
+        "Forest Slime": [
+            "enemy/forest_slime.png",
+            "enemy/forest_slime.json"
+        ],
+        "Aqua Slime": [
+            "enemy/aqua_slime.png",
+            "enemy/aqua_slime.json"
+        ],
+        "Ember Slime": [
+            "enemy/ember_slime.png",
+            "enemy/ember_slime.json"
         ]
     },
     "spritesheet": {
@@ -89,7 +92,9 @@
         "potions": "json/potions.json",
         "artifacts": "json/artifacts.json",
         "levels": "json/levels.json",
-        "enemies": "json/enemies.json"
+        "enemies": "json/enemies.json",
+        "skills": "json/skills.json",
+        "affinities": "json/affinities.json"
     },
     "bitmapFont": {},
     "tilemapTiledJSON": {}

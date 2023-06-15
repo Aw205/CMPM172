@@ -1,23 +1,26 @@
 [
    {
-        "name": "Blue Slime",
-        "description": "A blue blob.",
+        "name": "Aqua Slime",
+        "description": "A blue blob",
         "weakness" : "Grass",
-        "health" : 20,
+        "skills": ["Water Convert","Water Orb Spawn"],
+        "health" : "15-35",
         "damage": "5-12"
     },
     {
-        "name": "Red Slime",
-        "description": "A red blob.",
-        "weakness" : "Water",
-        "health" : 20,
-        "damage": "5-12"
-    },
-    {
-        "name": "Green Slime",
-        "description": "A green blob.",
+        "name": "Forest Slime",
+        "description": "A green blob",
         "weakness" : "Fire",
-        "health" : 20,
+        "skills": ["Grass Convert","Grass Orb Spawn"],
+        "health" : "10-20",
+        "damage": "5-12"
+    },
+    {
+        "name": "Ember Slime",
+        "description": "A red blob",
+        "weakness" : "Water",
+        "skills": ["Fire Convert","Fire Orb Spawn"],
+        "health" : "20-30",
         "damage": "5-12"
     }
    

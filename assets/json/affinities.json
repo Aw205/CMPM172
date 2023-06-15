@@ -1,0 +1,30 @@
+[
+    {
+        "name": "Fire",
+        "health": 75,
+        "passiveName": "Fire Leader Skill",
+        "passive": "5x damage with 2+ fire combos",
+        "skills": ["Fire Convert","Fire Orb Spawn"]
+    },
+    {
+        "name": "Water",
+        "health": 90,
+        "passiveName": "Water Leader Skill",
+        "passive": "5x atk with 2+ water combos",
+        "skills": ["Water Convert","Water Orb Spawn"]
+    },
+    {
+        "name": "Grass",
+        "health": 100,
+        "passiveName": "Grass Leader Skill",
+        "passive": "5x atk with 2+ grass combos",
+        "skills": ["Grass Convert","Grass Orb Spawn"]
+    },
+    {
+        "name": "Rainbow",
+        "health": 100,
+        "passiveName": "Rainbow Leader Skill",
+        "passive": "10x damage with 4+ attributes",
+        "skills": ["Rainbow Change"]
+    }
+]

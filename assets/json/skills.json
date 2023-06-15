@@ -1,39 +1,66 @@
 [
     {
-        "name": "Health Potion",
+        "name": "Fire Convert",
+        "type": "Orb Convert",
+        "description": "Convert Grass to Fire orbs",
+        "from": "Grass",
+        "to" : "Fire"
+    },
+    {
+        "name": "Water Convert",
+        "type": "Orb Convert",
         "description": "Convert Fire to Water orbs",
-        "rarity": "MediumSeaGreen",
-        "price": "30"
+        "from": "Fire",
+        "to" : "Water"
     },
     {
-        "name": "Regen Potion",
-        "description": "Convert Fire to Wood orbs",
-        "rarity": "MediumSeaGreen",
-        "price": "35"
+        "name": "Grass Convert",
+        "type": "Orb Convert",
+        "description": "Convert Water to Grass orbs ",
+        "from": "Water",
+        "to" : "Grass"
     },
     {
-        "name": "Attack Potion",
-        "description": "Convert Fire to Dark orbs ",
-        "rarity": "DodgerBlue",
-        "price": "55"
+        "name": "Fire Orb Spawn",
+        "type": "Random Orb Spawn",
+        "description": "Spawns 3 fire orbs ",
+        "amount": 3,
+        "to" : "Fire"
     },
     {
-        "name": "Combo Potion",
-        "description": "+3 combo count at the end of each turn.",
-        "rarity": "MediumPurple",
-        "price": "70"
+        "name": "Water Orb Spawn",
+        "type": "Random Orb Spawn",
+        "description": "Spawns 3 water orbs ",
+        "amount": 3,
+        "to" : "Water"
     },
     {
-        "name": "Time Potion",
-        "description": "Increases movement time by 5 seconds.",
-        "rarity": "DodgerBlue",
-        "price": "65"
+        "name": "Grass Orb Spawn",
+        "type": "Random Orb Spawn",
+        "description": "Spawns 3 grass orbs ",
+        "amount": 3,
+        "to" : "Grass"
     },
     {
-        "name": "Refresh Potion",
-        "description": "Reshuffles the board.",
-        "rarity": "MediumPurple",
-        "price": "65"
+        "name": "Fireball",
+        "type": "Random Orb Spawn",
+        "description": "6 fire orb spawn + 180 damage",
+        "amount": 6,
+        "damage": 180,
+        "to" : "Fire"
+    },
+    {
+        "name": "Water Spike",
+        "type": "Random Orb Spawn",
+        "description": "9 fire orb spawn + 150 damage",
+        "amount": 9,
+        "damage": 150,
+        "to" : "Water"
+    },
+    {
+        "name": "Rainbow Change",
+        "type": "Rainbow Board Change",
+        "description": "Changes board to all attributes"
     }
-   
+
 ]

@@ -1,0 +1,36 @@
+{ "frames": {
+   "0": {
+    "frame": { "x": 1, "y": 1, "w": 27, "h": 21 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 3, "y": 8, "w": 25, "h": 19 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 500
+   },
+   "1": {
+    "frame": { "x": 29, "y": 1, "w": 27, "h": 20 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 3, "y": 9, "w": 25, "h": 18 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 500
+   }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.2.40-x64",
+  "image": "aqua_slime.png",
+  "format": "RGBA8888",
+  "size": { "w": 56, "h": 22 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "Aqua Slime_idle", "from": 0, "to": 1, "direction": "forward" }
+  ],
+  "layers": [
+   { "name": "Base", "opacity": 255, "blendMode": "normal" },
+   { "name": "waves", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}

@@ -8,9 +8,7 @@ class HealthBar extends Phaser.GameObjects.DOMElement {
         let html = `
         <link rel="stylesheet" type="text/css" href="healthbar.css">
          <div class="health-bar" id = "healthbar">
-             <div class="bar" id = "playerBar">
-             <div class="hit" id = "hitBar" ></div>
-             </div>
+             <div class="bar" id = "playerBar"></div>
              <div class="health-num" id = "playerHealthNum"> ${this.currentHealth}/${this.maxHealth} </div>
          </div>`;
 

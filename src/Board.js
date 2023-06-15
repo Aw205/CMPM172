@@ -1,8 +1,8 @@
 class Board extends Phaser.GameObjects.GameObject {
 
-    static orbArray = null;
-    static timeLabel = null;
-    static timer = null;
+    //static orbArray = null;
+    //static timeLabel = null;
+    //static timer = null;
 
     constructor(scene, x, y) {
         super(scene);
@@ -15,7 +15,7 @@ class Board extends Phaser.GameObjects.GameObject {
         this.BOARD_WIDTH = 6;
 
         this.orbArray = new Array(this.BOARD_HEIGHT);
-        Board.orbArray = this.orbArray;
+        //Board.orbArray = this.orbArray;
         this.skyfallArray = new Array(this.BOARD_HEIGHT);
         this.orbSlotArray = new Array(this.BOARD_HEIGHT);
 
@@ -40,10 +40,12 @@ class Board extends Phaser.GameObjects.GameObject {
             }
         });
 
+        this.scene.events.on("swapOrbs",(row,col,targetR,targetC)=>{
+            [this.orbArray[row][col], this.orbArray[targetR][targetC]] = [this.orbArray[targetR][targetC], this.orbArray[row][col]];
+        })
+
         let moveTimeHTML = `<p id = "time" style= "padding: 5px; border-style: solid; border-radius: 5px; background-color: rgb(20, 20, 20, 0.8); font: 8px kreon; color: white" >Move Time: 10s</p>`;
         Board.timeLabel = this.scene.add.dom(100, 140).createFromHTML(moveTimeHTML).setVisible(false);
-
-
         let timerHTML = `<div id ="timer"class="round-time-bar" data-style="smooth" style="--duration: 6;"> </div>`
         Board.timer = this.scene.add.dom(100, 100).createFromHTML(timerHTML);
 
@@ -99,7 +101,7 @@ class Board extends Phaser.GameObjects.GameObject {
             for (let arr of this.orbArray) {
                 this.scene.add.tween({
                     targets: arr,
-                    alpha: 0.5,
+                    alpha: 0.3,
                     duration: 500,
                     delay: 500
                 });
@@ -270,34 +272,6 @@ class Board extends Phaser.GameObjects.GameObject {
 
     isInBounds(row, col) {
         return (row > -1 && row < this.BOARD_HEIGHT && col > -1 && col < this.BOARD_WIDTH);
-    }
-
-
-     changeOrb() {
-
-        console.log("changing orb");
-
-        for (let arr of this.orbArray) {
-            for (let orb of arr) {
-
-                if(orb.type == OrbType.Fire || orb.type == OrbType.Grass){
-                    
-                    let img = this.scene.add.image(orb.x,orb.y,this.orbImages[orb.type.description]).setScale(0);
-                    orb.setTexture("water");
-                    orb.type = OrbType.Water;
-                   
-                    this.scene.tweens.add({
-                        targets: img,
-                        scale: 2,
-                        duration: 500,
-                        yoyo: true,
-                        onComplete: ()=>{
-                            img.destroy(true);
-                        }
-                    });
-                }
-            }
-        }
     }
 
 }

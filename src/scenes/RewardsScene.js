@@ -15,14 +15,15 @@ class RewardsScene extends Phaser.Scene {
                     <div class="reward-window">
                         <div class="reward-text" >Rewards</div>
                         <div id = "gold" data-amount = "40" class = "reward" > 40 Gold </div>
-                        <div id = "item" class ="reward" > 
-                            ${img.outerHTML}
-                            <p style=" padding-left: 40px; margin: 0px;">Flower Katana </p>
-                           
-                        </div>
                         <button id = "continue" class="reward-continue"> Continue </button>
                     </div>`;
-        let rewardsWindow = this.add.dom(270, 480).createFromHTML(html).setAlpha(0);
+
+
+                    // <div id = "item" class ="reward" > 
+                    //         ${img.outerHTML}
+                    //         <p style=" padding-left: 40px; margin: 0px;">Flower Katana </p>
+                    //     </div>
+        let rewardsWindow = this.add.dom(270, 380).createFromHTML(html).setAlpha(0);
        
         let goldReward = rewardsWindow.getChildByID("gold");
         goldReward.addEventListener("click", () => {
@@ -30,10 +31,10 @@ class RewardsScene extends Phaser.Scene {
             rewardsWindow.getChildByID("gold").remove();
         });
 
-        let itemReward = rewardsWindow.getChildByID("item");
-        itemReward.addEventListener("click", () => {
-            rewardsWindow.getChildByID("item").remove();
-        });
+        // let itemReward = rewardsWindow.getChildByID("item");
+        // itemReward.addEventListener("click", () => {
+        //     rewardsWindow.getChildByID("item").remove();
+        // });
 
         rewardsWindow.getChildByID("continue").addEventListener("click", () => {
             this.scene.stop().stop("CombatScene").run("CampfireScene");

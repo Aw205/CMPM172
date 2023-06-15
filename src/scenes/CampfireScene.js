@@ -33,16 +33,26 @@ class CampfireScene extends Phaser.Scene {
                 <button class="select" id = "fight" >
                 <div style= "display: block;">
                     <div> Fight </div>
-                   
+                    <div id="floor-num" style="font-size: 12px; color: BurlyWood"> Floor 1 </div>
                 </div>
                 </button>
                 <button class="select" id = "shop"" >Shop</button> `;
         this.selection = this.add.dom(210, 240).createFromHTML(html);
 
-        //<div style="font-size: 12px; font-style: italic;"> Floor 1 </div>
+        this.level = 0;
 
         this.selection.getChildByID("fight").addEventListener("click", () => {
-            this.scene.sleep().run("CombatScene");
+            this.cameras.main.fadeOut();
+            this.cameras.main.once("camerafadeoutcomplete", () => {
+                this.scene.sleep().run("CombatScene",{level: this.level});
+                this.level++;
+                this.selection.getChildByID("floor-num").innerText = `Floor ${this.level+1}`;
+
+            });
+            // this.add.tween({
+            //     targets: this.selection,
+            //     alpha: 0
+            // });
         });
         this.selection.getChildByID("shop").addEventListener("click", () => {
             this.add.tween({

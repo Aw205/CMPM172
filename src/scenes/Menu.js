@@ -71,7 +71,7 @@ class Menu extends Phaser.Scene {
                     <link rel="stylesheet" type= "text/css" href="./src/MenuButton.css">
                      <div id = "menuContainer">
                         <button class = "menu" id = "start"  >Start</button>
-                        <button class = "menu" id = "options"  >Options</button>
+                        <button class = "menu" id = "tutorial"  >Tutorial</button>
                         <button class = "menu" id = "credits"  >Credits</button>
                     </div>`;
         this.selection = this.add.dom(100, 300).createFromHTML(html);
@@ -99,16 +99,17 @@ class Menu extends Phaser.Scene {
                     this.cameras.main.fadeOut(500);
                     this.sound.get("menu_music").pause();
                     this.cameras.main.once("camerafadeoutcomplete", () => {
-                        this.scene.start("CampfireScene");
-                        this.scene.run("HudScene");
+                        //this.scene.start("VictoryScene");
+                        this.scene.start("AffinitySelectionScene");
                     });
                 }
             });
         });
-        this.selection.getChildByID("options").addEventListener("pointerup", () => {
-            this.scene.pause().run("SettingsScene");
+        this.selection.getChildByID("tutorial").addEventListener("pointerup", () => {
+            this.scene.sleep().run("TutorialScene");
         });
         this.selection.getChildByID("credits").addEventListener("pointerup", () => {
+            this.scene.sleep().run("CreditsScene");
         });
     }
 }

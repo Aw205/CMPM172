@@ -18,7 +18,7 @@ class ShopItem extends Phaser.GameObjects.DOMElement {
                     <div id = "cont">
                     <div id="container" class="shop-slot">
                         ${imgHtml}
-                        <span class="item-description"> <span style= "color: ${itemData.rarity}; "> ${itemData.name}</span> <br> ${itemData.description} </span>
+                        <span class="item-description"> <span style= "color: ${itemData.rarity};"> ${itemData.name}</span> <br> ${itemData.description} </span>
                     </div> 
                     <img src="assets/images/coin.png" id= "img" width = "8" height = "8" style = "user-select: none; image-rendering: pixelated;"> 
                     <p id = "price" style= "user-select: none; pointer-events: none; font: 12px kreon; color: white; display: inline" > ${itemData.price} </p>
