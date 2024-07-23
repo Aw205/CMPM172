@@ -19,6 +19,7 @@ class CreditsScene extends Phaser.Scene {
                     <p class= "credits-person"> Icons8.org <span class= "credits-asset"> - Sword & Heart Icons </span> </p>
                     <p class= "credits-person"> Tienlev <span class= "credits-asset"> - Slimes </span> </p>
                     <p class= "credits-person"> Relaxation Harmony <span class= "credits-asset"> - Background Music </span> </p>
+                    <p class= "credits-person"> ShapeForms Audio <span class= "credits-asset"> - Coin Sfx </span> </p>
                     <button class = "credits-return-button" id = "credits-return">Return</button> `;
         this.container = this.add.dom(200, 220).createFromHTML(s);
 

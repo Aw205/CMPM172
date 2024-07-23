@@ -18,9 +18,6 @@
         "Refresh Potion": "images/potions/Refresh Potion.png",
         "coin": "images/coin.png",
         "moneyBag": "images/monies.png",
-        "heart": "images/heart.png",
-        "cursor": "UI/sAxCursor.png",
-        "dialogBox": "UI/dialogBox.png",
         "battleCircle": "images/battleCircle.png",
         "clouds_front_t": "images/parallax_fc/clouds_front_t_fc.png",
         "clouds_front": "images/parallax_fc/clouds_front_fc.png",
@@ -42,13 +39,21 @@
         "Flower Katana": "images/artifacts/Flower Katana.png",
         "Royal Sword": "images/artifacts/Royal Sword.png",
         "Shadow Sword": "images/artifacts/Shadow Sword.png",
-        "Light Sword": "images/artifacts/Light Sword.png"
+        "Light Sword": "images/artifacts/Light Sword.png",
+        "sign": "images/sign.png",
+        "rock_1": "images/rock_1.png",
+        "rock_2": "images/rock_2.png",
+        "rock_3": "images/rock_3.png"
+       
     },
     "svg": {},
     "audio": {
         "campfire_music": "audio/edited-fantasy-medival.wav",
         "menu_music": "audio/rpg_music_edited.wav",
-        "coin_purchase": "audio/coin.wav"
+        "coin_purchase": "audio/coin.wav",
+        "combat_music": "audio/copyright-free-vol-4.wav",
+        "orb_move_sfx": "audio/Bubble_heavy.wav",
+        "orb_combo_sfx": "audio/orbCombo.wav"
 
     },
     "aseprite": {
@@ -86,7 +91,29 @@
                 "frameWidth": 8,
                 "frameHeight": 8
             }
+        ],
+        "merchant_idle": [
+            "images/Idle.png",
+            {
+                "frameWidth": 128,
+                "frameHeight": 128
+            }
+        ],
+        "merchant_shop": [
+            "images/merchant_shop.png",
+            {
+                "frameWidth": 128,
+                "frameHeight": 128
+            }
+        ],
+        "shop": [
+            "images/shop_anim.png",
+            {
+                "frameWidth": 118,
+                "frameHeight": 128
+            }
         ]
+
     },
     "json": {
         "potions": "json/potions.json",
@@ -94,7 +121,8 @@
         "levels": "json/levels.json",
         "enemies": "json/enemies.json",
         "skills": "json/skills.json",
-        "affinities": "json/affinities.json"
+        "affinities": "json/affinities.json",
+        "dialogs": "json/dialogs.json"
     },
     "bitmapFont": {},
     "tilemapTiledJSON": {}

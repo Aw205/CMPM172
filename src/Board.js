@@ -1,9 +1,5 @@
 class Board extends Phaser.GameObjects.GameObject {
 
-    //static orbArray = null;
-    //static timeLabel = null;
-    //static timer = null;
-
     constructor(scene, x, y) {
         super(scene);
 
@@ -15,7 +11,6 @@ class Board extends Phaser.GameObjects.GameObject {
         this.BOARD_WIDTH = 6;
 
         this.orbArray = new Array(this.BOARD_HEIGHT);
-        //Board.orbArray = this.orbArray;
         this.skyfallArray = new Array(this.BOARD_HEIGHT);
         this.orbSlotArray = new Array(this.BOARD_HEIGHT);
 
@@ -41,6 +36,7 @@ class Board extends Phaser.GameObjects.GameObject {
         });
 
         this.scene.events.on("swapOrbs",(row,col,targetR,targetC)=>{
+            this.scene.sound.play("orb_move_sfx",{volume: 0.2});
             [this.orbArray[row][col], this.orbArray[targetR][targetC]] = [this.orbArray[targetR][targetC], this.orbArray[row][col]];
         })
 
@@ -48,6 +44,12 @@ class Board extends Phaser.GameObjects.GameObject {
         Board.timeLabel = this.scene.add.dom(100, 140).createFromHTML(moveTimeHTML).setVisible(false);
         let timerHTML = `<div id ="timer"class="round-time-bar" data-style="smooth" style="--duration: 6;"> </div>`
         Board.timer = this.scene.add.dom(100, 100).createFromHTML(timerHTML);
+
+
+        this.detuneComboSfx = [];
+        for(let i = 0; i < 20; i++){
+            this.detuneComboSfx.push(this.scene.sound.add("orb_combo_sfx",{detune: 600 - 100*i}));
+        }
 
     }
 
@@ -145,7 +147,8 @@ class Board extends Phaser.GameObjects.GameObject {
         if (this.comboList.length == 0) {
             return this.skyfall();
         }
-        //this.scene.sound.play("orbCombo");
+        this.detuneComboSfx[this.comboList.length].play();
+      
         let set = this.comboList.pop();
         let arr = Array.from(set);
         this.scene.tweens.add({

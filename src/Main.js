@@ -1,13 +1,16 @@
 'use strict';
 
-let cursors;
 let config = {
   type: Phaser.WEBGL,
   parent: window,
+  // width: 800, 
+  // height: 450,
   width: 640,
   height: 480,
   resolution: window.devicePixelRatio,
-  scene: [LoadingScreen,Menu,DialogModal,CombatScene,ShopScene,HudScene,InventoryScene,CampfireScene,SettingsScene,RewardsScene,AffinitySelectionScene,VictoryScene,CreditsScene,DeathScene,TutorialScene],
+  scene: [LoadingScreen,Menu,CombatScene,ShopScene,HudScene,InventoryScene,
+    CampfireScene,SettingsScene,RewardsScene,AffinitySelectionScene,CreditsScene,
+  Typewriter],
   scale: {
     mode: Phaser.Scale.FIT,
   },

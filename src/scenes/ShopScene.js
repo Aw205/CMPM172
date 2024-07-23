@@ -8,6 +8,7 @@ class ShopScene extends Phaser.Scene {
 
         this.items = [];
         let windowHTML = ` 
+        
         <p style= "user-select: none; pointer-events: none; font: 28px kreon; color: tan; margin: 0px;" > Potions </p>
         <div id = "potion-grid" class="grid-container"></div>
         <p style= "user-select: none; pointer-events: none; font: 28px kreon; color: GoldenRod; margin: 0px;" > Artifacts </p>
@@ -36,6 +37,7 @@ class ShopScene extends Phaser.Scene {
 
         this.events.on("wake",(sys,data)=>{
             this.shopWindowTransition(true);
+
         });
 
     }
@@ -90,6 +92,7 @@ class ShopScene extends Phaser.Scene {
 
 
     shopWindowTransition(isTransitionIn) {
+
         if (isTransitionIn) {
             return this.tweens.add({
                 targets: this.grid,
@@ -107,7 +110,7 @@ class ShopScene extends Phaser.Scene {
             ease: "Linear",
             onComplete: () => {
                 this.scene.sleep();
-                this.scene.get("CampfireScene").events.emit("setVisible");
+                this.scene.get("CampfireScene").events.emit("shop-close");
             }
         });
     }

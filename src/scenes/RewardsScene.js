@@ -6,43 +6,32 @@ class RewardsScene extends Phaser.Scene {
 
     create() {
 
-        let img = document.createElement("img");
-        img.src = "assets/images/artifacts/Flower Katana.png";
-        img.classList.add("reward-artifact");
+        // let img = document.createElement("img");
+        // img.src = "assets/images/artifacts/Flower Katana.png";
+        // img.classList.add("reward-artifact");
 
         let html = `
-                    <link rel = "stylesheet" href= "./src/rewards.css">
                     <div class="reward-window">
-                        <div class="reward-text" >Rewards</div>
-                        <div id = "gold" data-amount = "40" class = "reward" > 40 Gold </div>
+                        <div class="reward-text">Rewards</div>
+                        <div id="gold" data-amount="40" class ="reward" > 40 Gold </div>
                         <button id = "continue" class="reward-continue"> Continue </button>
                     </div>`;
-
 
                     // <div id = "item" class ="reward" > 
                     //         ${img.outerHTML}
                     //         <p style=" padding-left: 40px; margin: 0px;">Flower Katana </p>
                     //     </div>
-        let rewardsWindow = this.add.dom(270, 380).createFromHTML(html).setAlpha(0);
-       
-        let goldReward = rewardsWindow.getChildByID("gold");
-        goldReward.addEventListener("click", () => {
-            this.scene.get("HudScene").events.emit("incrementGold", parseInt(goldReward.dataset.amount));
-            rewardsWindow.getChildByID("gold").remove();
-        });
+        let rewardsWindow = this.add.dom(330, 380).createFromHTML(html).setAlpha(0);
 
-        // let itemReward = rewardsWindow.getChildByID("item");
-        // itemReward.addEventListener("click", () => {
-        //     rewardsWindow.getChildByID("item").remove();
-        // });
 
+        //this.scene.get("HudScene").events.emit("incrementGold", parseInt(goldReward.dataset.amount));
+        //let goldReward = rewardsWindow.getChildByID("gold");
         rewardsWindow.getChildByID("continue").addEventListener("click", () => {
             this.scene.stop().stop("CombatScene").run("CampfireScene");
         });
-
         this.add.tween({
             targets: rewardsWindow,
-            y: 140,
+            y: 240,
             alpha: 1,
             duration: 500,
             ease:"Sine.InOut"

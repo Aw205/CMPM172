@@ -49,7 +49,7 @@ class Enemy extends Phaser.GameObjects.Sprite {
         let range = this.enemyData.health.split('-');
         let health = Phaser.Math.Between(parseInt(range[0]), parseInt(range[1]));
 
-        this.healthBar = new HealthBar(this.scene, this.x + 20, this.y + 60, health);
+        this.healthBar = new HealthBar(this.scene, this.x + 60, this.getBottomCenter().y, health);
         this.healthBar.setWidth();
 
         this.on("damageEnemy", (damage) => {

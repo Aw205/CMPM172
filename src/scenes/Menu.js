@@ -7,20 +7,24 @@ class Menu extends Phaser.Scene {
 
     create() {
 
-        this.input.setDefaultCursor('url(assets/UI/SAxCursor.png), auto');
         this.sound.play("menu_music",{loop: true});
 
         this.createMenuButtons();
         this.createLights();
         this.createBackground();
 
-        let titleHTML = `<p style = "color: Wheat; font: 36px kreon;" > Squish the Slime </p>`;
+        let titleHTML = `<p style = "color: Gray; font: 36px kreon; user-select:none;" > Into the Night </p>`;
         this.title = this.add.dom(320, 50).createFromHTML(titleHTML);
 
         this.anims.create({ key: "campfireAnim", frames: "campfire", frameRate: 12, repeat: -1 });
         this.anims.create({ key: "campfireEndAnim", frames: "campfireEnd", frameRate: 10 });
+        this.anims.create({ key: "merchant_idle_anim", frames: "merchant_idle", frameRate: 8,repeat: -1});
+        this.anims.create({ key: "shop_anim", frames: "shop", frameRate: 6,repeat: -1});
         this.campfire = this.add.sprite(320, 330, "campfire").play("campfireAnim").setPipeline("Light2D");
-    }
+
+        this.anims.create({key: 'merchant_shop_open_anim',frames: this.anims.generateFrameNumbers('merchant_shop', {start:0, end:9 }), frameRate: 9});
+        //this.scene.run("Typewriter");
+    }   
 
     createBackground() {
 
@@ -68,13 +72,11 @@ class Menu extends Phaser.Scene {
     createMenuButtons() {
 
         let html = `
-                    <link rel="stylesheet" type= "text/css" href="./src/MenuButton.css">
-                     <div id = "menuContainer">
-                        <button class = "menu" id = "start"  >Start</button>
-                        <button class = "menu" id = "tutorial"  >Tutorial</button>
-                        <button class = "menu" id = "credits"  >Credits</button>
+                     <div id="menuContainer">
+                        <button class="menu" id="start">Start</button>
+                        <button class="menu" id="credits">Credits</button>
                     </div>`;
-        this.selection = this.add.dom(100, 300).createFromHTML(html);
+        this.selection = this.add.dom(100, 350).createFromHTML(html);
         this.selection.getChildByID("start").addEventListener("pointerup", () => {
             this.campfireTween.stop();
             this.add.tween({
@@ -99,14 +101,11 @@ class Menu extends Phaser.Scene {
                     this.cameras.main.fadeOut(500);
                     this.sound.get("menu_music").pause();
                     this.cameras.main.once("camerafadeoutcomplete", () => {
-                        //this.scene.start("VictoryScene");
-                        this.scene.start("AffinitySelectionScene");
+                        //this.scene.start("AffinitySelectionScene");
+                        this.scene.start("CampfireScene");
                     });
                 }
             });
-        });
-        this.selection.getChildByID("tutorial").addEventListener("pointerup", () => {
-            this.scene.sleep().run("TutorialScene");
         });
         this.selection.getChildByID("credits").addEventListener("pointerup", () => {
             this.scene.sleep().run("CreditsScene");

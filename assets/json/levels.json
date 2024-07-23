@@ -1,35 +1,40 @@
 [
     {
-        "name": "Floor 1",
+        "name": "1-1",
         "enemies": ["Forest Slime"],
+        "dialog" :0,
         "gold": 40
 
     },
     {
-        "name": "Floor 2",
+        "name": "1-2",
         "enemies": ["Forest Slime", "Aqua Slime"],
+        "dialog" :0,
         "gold": 50
        
     },
     {
-        "name": "Floor 3",
+        "name": "1-3",
         "enemies": ["Ember Slime"],
+        "dialog" :0,
         "gold": 60
        
     },
     {
-        "name": "Floor 4",
+        "name": "1-4",
         "enemies": ["Forest Slime", "Forest Slime"],
+        "dialog" :0,
         "gold": 70
 
     },
     {
-        "name": "Floor 5",
+        "name": "1-5",
         "enemies": ["Forest Slime","Ember Slime","Aqua Slime"],
+        "dialog" :0,
         "gold": 80
     },
     {
-        "name": "Floor 6",
+        "name": "1-6",
         "enemies": ["Forest Slime"],
         "gold": 100
 

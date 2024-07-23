@@ -5,8 +5,6 @@ class AffinitySelectionScene extends Phaser.Scene {
     }
 
     create() {
-
-
         //this.cameras.main.fadeIn(500);
         this.createSelectionButtons();
     }

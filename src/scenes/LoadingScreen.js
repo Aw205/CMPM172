@@ -20,6 +20,7 @@ class LoadingScreen extends Phaser.Scene {
     loadAssets(assets) {
         Object.keys(assets).forEach((group) => {
             Object.keys(assets[group]).forEach((key) => {
+
                 let value = assets[group][key];
                 if (group == "bitmapFont" || group == "spritesheet" || group == "atlas" || group == "svg" || group == "aseprite") {
                     this.load[group](key, value[0], value[1]);

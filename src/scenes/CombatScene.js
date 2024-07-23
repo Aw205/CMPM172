@@ -38,6 +38,15 @@ class CombatScene extends Phaser.Scene {
 
     create(numLevel) {
 
+
+        this.sound.play("combat_music", { loop: true, volume: 0});
+        this.add.tween({
+            targets: this.sound.get("combat_music"),
+            volume: 0.3,
+            duration: 5000
+        });
+
+
         this.events.off("comboMatched");
         this.events.off("damagePlayer");
         this.events.off("enemyDied");
@@ -57,20 +66,17 @@ class CombatScene extends Phaser.Scene {
         this.createEnemies();
         this.damageColors = ["LightCoral", "LightSkyBlue", "LightGreen", "Plum", "Gold"];
         this.particleArray = ["fire_particle", "water_particle", "wood_particle", "dark_particle", "light_particle"];
-        this.healthBar = new HealthBar(this, 345, 270, 100);
+        this.healthBar = new HealthBar(this, 320, 270, 100);
         this.createComboCounter();
         this.createMultiplier();
         this.board = new Board(this, 240, 300);
         this.createListeners();
 
-        //leaderskill
-        let ls = new LeaderSkills(this);
-
-        SkillManager = new Skills(this, this.board);
+        // //leaderskill
+        // let ls = new LeaderSkills(this);
+        // SkillManager = new Skills(this, this.board);
         this.totalDamage = 0;
-
-        this.createSkills();
-
+        // this.createSkills();
         //this.createChangeOrbButton();
 
 
@@ -102,7 +108,6 @@ class CombatScene extends Phaser.Scene {
         }
 
     }
-
 
     createBackground() {
 
@@ -354,6 +359,16 @@ class CombatScene extends Phaser.Scene {
                                 return this.scene.stop().stop("HudScene").run("VictoryScene");
                             }
                             this.scene.run("RewardsScene");
+                            this.add.tween({
+                                targets: this.sound.get("combat_music"),
+                                volume:0,
+                                duration: 500,
+                                onComplete: ()=>{
+                                    this.sound.get("combat_music").stop();
+                                }
+                            })
+
+                          
                         }
                     });
                     return;
